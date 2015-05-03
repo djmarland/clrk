@@ -1,11 +1,17 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
+dir = File.dirname(File.expand_path(__FILE__))
 
-Vagrant.configure("2") do |config|
+require 'yaml'
+require "#{dir}/puphpet/ruby/deep_merge.rb"
 
-  config.vm.box = "scotch/box"
-  config.vm.network "private_network", ip: "192.168.33.10"
-  config.vm.hostname = "scotchbox"
-  config.vm.synced_folder ".", "/var/www", :mount_options => ["dmode=777", "fmode=666"]
+configValues = YAML.load_file("#{dir}/puphpet/config.yaml")
 
+if File.file?("#{dir}/puphpet/config-custom.yaml")
+  custom = YAML.load_file("#{dir}/puphpet/config-custom.yaml")
+  configValues.deep_merge!(custom)
 end
+
+data = configValues['vagrantfile']
+
+Vagrant.require_version '>= 1.6.0'
+
+eval File.read("#{dir}/puphpet/vagrant/Vagrantfile-#{data['target']}")
