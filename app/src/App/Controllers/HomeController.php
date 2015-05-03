@@ -23,7 +23,8 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request, Application $app)
     {
-        return $app['twig']->render('home/index.html.twig', array());
+        $this->set('name', 'John');
+        return $this->render($request, $app, 'home/index');
     }
 
     /**
@@ -34,6 +35,6 @@ class HomeController extends Controller
      */
     public function styleguideAction(Request $request, Application $app)
     {
-        return $app['twig']->render('home/styleguide.html.twig', array());
+        return $this->render($request, $app, 'home/styleguide');
     }
 }

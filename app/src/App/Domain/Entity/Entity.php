@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Entity;
 
 use App\Domain\ValueObject\ID;
 
@@ -8,7 +8,7 @@ use App\Domain\ValueObject\ID;
  * Class Entity
  * For those which the base object inherit
  */
-class Entity
+abstract class Entity
 {
     public function __construct(
         ID $id

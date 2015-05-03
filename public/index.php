@@ -1,5 +1,4 @@
 <?php
-phpinfo();die;
 use Silex\Application;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -13,8 +12,9 @@ $app_name = getenv('APP_NAME') ?: '';
 $app_release_number = getenv('APP_RELEASE_NUMBER') ?: '';
 $app_env = getenv('APP_ENV') ?: 'production';
 
-if ($app_env == 'local') {
+if ($app_env == 'dev') {
     ini_set('display_errors', true);
+    error_reporting(-1);
 }
 
 //

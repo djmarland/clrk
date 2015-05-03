@@ -2,7 +2,6 @@
 
 namespace App\Domain\Entity;
 
-use App\Domain\Entity;
 use App\Domain\ValueObject\Address;
 use App\Domain\ValueObject\ID;
 
@@ -10,7 +9,7 @@ use App\Domain\ValueObject\ID;
  * Class User
  * For describe users of the system
  */
-class User extends Entity
+class Customer extends Entity
 {
     const KEY_PREFIX = 'C';
 

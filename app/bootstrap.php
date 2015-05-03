@@ -13,7 +13,7 @@ use App\Helpers\LogHandlerFactory;
 date_default_timezone_set("Europe/London");
 
 $app['env'] = 'live';
-if (isset($app_env) && in_array($app_env, array('local','unittests','int','test','live'))) {
+if (isset($app_env) && in_array($app_env, array('dev','unittests','int','test','live'))) {
     $app['env'] = $app_env;
 }
 

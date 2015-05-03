@@ -8,8 +8,9 @@ namespace App\Domain\ValueObject;
  */
 class ID
 {
+
     /**
-     * @param $id string
+     * @param $id
      */
     public function __construct(
         $id
