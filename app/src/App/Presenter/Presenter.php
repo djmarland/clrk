@@ -20,7 +20,7 @@ abstract class Presenter
 
     /**
      * @param object $domainModel optional
-     * @param array $options optional
+     * @param array  $options     optional
      */
     public function __construct(
         $domainModel = null,
@@ -42,6 +42,7 @@ abstract class Presenter
     /**
      * A unique generated ID for this object
      * Only relevant for page renders that need a reference
+     *
      * @var
      */
     protected $uniqueId;

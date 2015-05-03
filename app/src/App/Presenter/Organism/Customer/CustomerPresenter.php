@@ -21,7 +21,7 @@ class CustomerPresenter extends Presenter implements CustomerPresenterInterface
 
     /**
      * @param Customer $customer
-     * @param array $options
+     * @param array    $options
      */
     public function __construct(
         Customer $customer,
