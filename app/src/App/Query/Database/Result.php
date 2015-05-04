@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Query\MySQL;
+namespace App\Query\Database;
 
 use App\Query\QueryResultInterface;
 

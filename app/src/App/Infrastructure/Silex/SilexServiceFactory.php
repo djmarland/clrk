@@ -3,7 +3,8 @@
 namespace App\Infrastructure\Silex;
 
 use App\Infrastructure\ServiceFactory;
-use App\Query\MySQLQueryFactory;
+use App\Query\DatabaseQueryFactory;
+use App\Service\Service;
 
 /**
  * Default factory setup
@@ -16,16 +17,16 @@ class SilexServiceFactory extends ServiceFactory
     public function __construct($app)
     {
 
-        $mySQLQueryFactory = $this->getMySQLQueryFactoryBuilder($app);
+        $databaseQueryFactory = $this->getDatabaseQueryFactoryBuilder($app);
 
         parent::__construct(
             [
-            'MySQL' => $mySQLQueryFactory
+                Service::FACTORY_DATABASE => $databaseQueryFactory
             ]
         );
     }
 
-    private function getMySQLQueryFactoryBuilder($app)
+    private function getDatabaseQueryFactoryBuilder($app)
     {
         // @todo - get the real silex info
         $host = 'bob';
@@ -33,7 +34,7 @@ class SilexServiceFactory extends ServiceFactory
         $username = 'bob';
         $password = 'bob';
 
-        return new MySQLQueryFactory(
+        return new DatabaseQueryFactory(
             $host,
             $database,
             $username,

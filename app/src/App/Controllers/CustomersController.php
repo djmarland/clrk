@@ -30,7 +30,7 @@ class CustomersController extends Controller
         $customers = $customersService->getAlphabetical();
 
         $presenters = array();
-        foreach($customers->getDomainModels() as $customer) {
+        foreach ($customers->getDomainModels() as $customer) {
             $presenters[] = new CustomerPresenter($customer);
         }
         /*

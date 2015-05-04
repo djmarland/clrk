@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Query\MySQL;
+namespace App\Query\Database;
 
 /**
  * Customers table
  * Class CustomersQuery
  * @package App\Query\MySQL
  */
-class CustomersQuery extends MySQLQuery
+class CustomersQuery extends DatabaseQuery
 {
 
     /**

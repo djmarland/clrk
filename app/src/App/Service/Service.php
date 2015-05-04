@@ -12,6 +12,8 @@ use Solution10\Config\Exception;
 abstract class Service
 {
 
+    const FACTORY_DATABASE = 'Database';
+
     /**
      * @var
      */
@@ -27,12 +29,12 @@ abstract class Service
     }
 
 
-    public function getMySQLQueryFactory()
+    public function getDatabaseQueryFactory()
     {
-        if (isset($this->factories['MySQL'])) {
-            return $this->factories['MySQL'];
+        if (isset($this->factories[self::FACTORY_DATABASE])) {
+            return $this->factories[self::FACTORY_DATABASE];
         }
         // @todo - be cleaner about this (custom exception)
-        throw new Exception('You tried to use a feature that needed MySQL, but it was not setup');
+        throw new Exception('You tried to use a feature that needed Database, but it was not setup');
     }
 }

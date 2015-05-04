@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Client\MySQL;
-
-use App\Query\MySQL\Result;
+namespace App\Client\Database;
 
 /**
- * Class SQLClient
+ * Class DatabaseClient
  */
-class SQLClient
+abstract class DatabaseClient implements DatabaseClientInterface
 {
 
     /**
@@ -56,23 +54,5 @@ class SQLClient
     public function setSort($sort)
     {
         $this->sort = $sort;
-    }
-
-    public function getResult()
-    {
-        // @todo this is where a SQL query is constructed
-        // based on what we've set so far
-
-        // for now, you get a mock
-        return new Result([
-            [
-                'id' => 1,
-                'name' => 'Will Sasso'
-            ],
-            [
-                'id' => 2,
-                'name' => 'Bryan Callen'
-            ]
-        ]);
     }
 }

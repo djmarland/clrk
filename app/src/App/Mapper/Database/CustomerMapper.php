@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mapper\MySQL;
+namespace App\Mapper\Database;
 
 use App\Domain\Entity\Customer;
 use App\Domain\ValueObject\ID;

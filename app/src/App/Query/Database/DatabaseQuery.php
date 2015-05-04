@@ -1,16 +1,26 @@
 <?php
 
-namespace App\Query\MySQL;
+namespace App\Query\Database;
 
 use App\Query\QueryInterface;
 
 /**
- * Default MySQL query setup
+ * Default Database query setup
  * Class Query
- * @package App\Query\MySQL
+ * @package App\Query\Database
  */
-abstract class MySQLQuery implements QueryInterface
+abstract class DatabaseQuery implements QueryInterface
 {
+
+    /**
+     * The standard pagesize to use if none were set
+     */
+    const DEFAULT_PAGESIZE = 20;
+
+    /**
+     * The standard page to use if none were set
+     */
+    const DEFAULT_PAGE     = 1;
 
     /**
      * @var

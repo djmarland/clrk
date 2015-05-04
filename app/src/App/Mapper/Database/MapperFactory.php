@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mapper\MySQL;
+namespace App\Mapper\Database;
 
 /**
  * Factory to create mappers as needed

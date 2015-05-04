@@ -10,6 +10,8 @@ use App\Domain\ValueObject\ID;
  */
 abstract class Entity
 {
+    const KEY_PREFIX = null;
+
     public function __construct(
         ID $id
     ) {
@@ -30,10 +32,12 @@ abstract class Entity
     }
 
     /**
+     * @param string $prefix
      * @return string
      */
     public function getKey()
     {
-        // @todo - convert ID to KEY
+        // @todo - convert ID to KEY properly
+        return  static::KEY_PREFIX . $this->id;
     }
 }

@@ -15,7 +15,10 @@ class ID
     public function __construct(
         $id
     ) {
-        $this->id = $id; // @todo - validate
+        if (!is_int($id)) {
+            throw new \InvalidArgumentException('ID must be an Integer');
+        }
+        $this->id = $id;
     }
 
     /**
@@ -33,6 +36,6 @@ class ID
 
     public function __toString()
     {
-        return $this->getId();
+        return (string) $this->getId();
     }
 }

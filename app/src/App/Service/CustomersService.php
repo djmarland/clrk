@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Query\Database\DatabaseQuery;
+
 /**
  * Default factory setup
  * Class ServiceFactory
@@ -12,11 +14,11 @@ class CustomersService extends Service
 
 
     public function getAlphabetical(
-        $perPage = null,
-        $page = null
+        $perPage = DatabaseQuery::DEFAULT_PAGESIZE,
+        $page = DatabaseQuery::DEFAULT_PAGE
     ) {
 
-        $query = $this->getMySQLQueryFactory()->createQuery('Customers');
+        $query = $this->getDatabaseQueryFactory()->createQuery('Customers');
         $query->sortAlphabetically();
         $query->setPagination(
             $perPage,

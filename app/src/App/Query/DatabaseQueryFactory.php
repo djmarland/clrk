@@ -2,15 +2,14 @@
 
 namespace App\Query;
 
-use App\Client\MySQL\SQLClient;
-use App\Mapper\MySQL\MapperFactory;
+use App\Mapper\Database\MapperFactory;
 
 /**
  * Default factory setup
- * Class ServiceFactory
+ * Class DatabaseQueryFactory
  * @package App\Infrastructure
  */
-class MySQLQueryFactory
+class DatabaseQueryFactory
 {
 
     /**
@@ -45,13 +44,19 @@ class MySQLQueryFactory
         $this->password = $password;
     }
 
+    /**
+     * @param $queryName
+     * @return QueryInterface
+     */
     public function createQuery($queryName)
     {
         // @todo - database info should have been passed through
-        $dbClient = new SQLClient(array());
+
+        $table = '\App\Client\Database\\' . $queryName . 'Table';
+        $dbClient = new $table(array());
         $mapperFactory = new MapperFactory();
 
-        $className = '\App\Query\MySQL\\' . $queryName . 'Query';
+        $className = '\App\Query\Database\\' . $queryName . 'Query';
         return new $className($dbClient, $mapperFactory);
     }
 }
