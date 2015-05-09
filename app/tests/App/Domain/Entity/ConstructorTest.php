@@ -10,12 +10,12 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
     {
         $id = new ID(123);
 
-        $mockEntity = $this->getMockBuilder('UnitTest\App\Domain\Entity\MockEntity')
+        $mockEntity = $this->getMockBuilder('App\Domain\Entity\Entity')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
 
         $mockEntity->__construct($id);
 
-        $this->assertSame('X123', $mockEntity->getKey('X'));
+        $this->assertSame('X123', $mockEntity->getKey());
     }
 }

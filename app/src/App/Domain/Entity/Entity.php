@@ -3,6 +3,7 @@
 namespace App\Domain\Entity;
 
 use App\Domain\ValueObject\ID;
+use App\Domain\ValueObject\Key;
 
 /**
  * Class Entity
@@ -32,12 +33,11 @@ abstract class Entity
     }
 
     /**
-     * @param string $prefix
-     * @return string
+     * @return Key
      */
     public function getKey()
     {
-        // @todo - convert ID to KEY properly
-        return  static::KEY_PREFIX . $this->id;
+        return new Key($this->id, static::KEY_PREFIX);
     }
+
 }
