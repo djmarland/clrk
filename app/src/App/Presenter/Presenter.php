@@ -16,7 +16,9 @@ abstract class Presenter
     /**
      * @var array
      */
-    protected $options = [];
+    protected $options = [
+        'classType' => 'Presenter'
+    ];
 
     /**
      * @param object $domainModel optional
@@ -36,7 +38,7 @@ abstract class Presenter
      */
     public function getOptions()
     {
-        return (object)$this->options;
+        return (object) $this->options;
     }
 
     /**
@@ -54,7 +56,9 @@ abstract class Presenter
     public function getUniqueID()
     {
         if (!$this->uniqueId) {
-            $class = end(explode('\\', get_called_class()));
+            $parts = explode('\\', get_called_class());
+
+            $class = end($parts);
             $this->uniqueId = 'View-' . $class . '-' . mt_rand();
         }
         return $this->uniqueId;

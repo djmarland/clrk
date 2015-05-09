@@ -2,6 +2,8 @@
 
 namespace App\Presenter;
 
+use App\Domain\Exception\DataNotSetException;
+
 /**
  * Class MasterPresenter
  * The entire set of page data is passed into this presenter
@@ -27,9 +29,18 @@ class MasterPresenter extends Presenter
         ];
     }
 
+    public function get($key)
+    {
+        if (isset($this->data[$key])) {
+            return $this->data[$key]->data;
+        }
+        throw new DataNotSetException;
+    }
+
     public function getData()
     {
         $data = array();
+        ksort($this->data);
         foreach ($this->data as $key => $value) {
             $data[$key] = $value->data;
         }
@@ -40,6 +51,7 @@ class MasterPresenter extends Presenter
     {
         $data = (object) [];
 
+        ksort($this->data);
         foreach ($this->data as $key => $value) {
             if ($value->inFeed) {
                 $data->$key = $value->data;

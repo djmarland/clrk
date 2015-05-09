@@ -2,6 +2,8 @@
 
 namespace App\Query\Database;
 
+use App\Client\Database\DatabaseClientInterface;
+use App\Mapper\Database\MapperFactory;
 use App\Query\QueryInterface;
 
 /**
@@ -37,21 +39,21 @@ abstract class DatabaseQuery implements QueryInterface
      * @param $mapperFactory
      */
     public function __construct(
-        $dbClient,
-        $mapperFactory
+        DatabaseClientInterface $dbClient,
+        MapperFactory $mapperFactory
     ) {
         $this->dbClient = $dbClient;
         $this->mapperFactory = $mapperFactory;
     }
 
     /**
-     * @param $page
      * @param $pageSize
+     * @param $page
      * @return $this
      */
     public function setPagination(
-        $page,
-        $pageSize
+        $pageSize,
+        $page
     ) {
         $this->dbClient->setLimit($pageSize);
         $offset = ($page-1) * $pageSize;
@@ -61,10 +63,20 @@ abstract class DatabaseQuery implements QueryInterface
 
     /**
      * @param $sort
+     * @param string $direction
      * @return $this
      */
-    public function setSort($sort)
+    public function sortBy($sort, $direction = 'ASC')
     {
+        $direction = strtoupper($direction);
+        if (!in_array($direction, [
+            'ASC', 'DESC'
+        ])) {
+            throw new \InvalidArgumentException('Invalid sort direction. Should be ASC or DESC');
+        }
+
+        // @todo validate direction
+        $sort = $sort . ' ' . $direction;
         $this->dbClient->setSort($sort);
         return $this;
     }

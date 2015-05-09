@@ -32,12 +32,16 @@ abstract class Entity
         return $this->id;
     }
 
+    private $key;
+
     /**
      * @return Key
      */
     public function getKey()
     {
-        return new Key($this->id, static::KEY_PREFIX);
+        if (!$this->key) {
+            $this->key = new Key($this->id, static::KEY_PREFIX);
+        }
+        return $this->key;
     }
-
 }

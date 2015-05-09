@@ -13,9 +13,9 @@ class CustomersQuery extends DatabaseQuery
     /**
      * @return $this
      */
-    public function sortAlphabetically()
+    public function order()
     {
-        $this->setSort('name ASC');
+        $this->sortBy('name');
         return $this;
     }
 }

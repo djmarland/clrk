@@ -19,7 +19,7 @@ class CustomersService extends Service
     ) {
 
         $query = $this->getDatabaseQueryFactory()->createQuery('Customers');
-        $query->sortAlphabetically();
+        $query->order();
         $query->setPagination(
             $perPage,
             $page

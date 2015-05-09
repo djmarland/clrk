@@ -8,4 +8,7 @@ namespace App\Query;
 interface QueryInterface
 {
     public function getResult();
+
+    // every model type must know how to order itself (by default anyway)
+    public function order();
 }

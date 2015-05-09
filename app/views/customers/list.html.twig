@@ -9,7 +9,7 @@
     {% if customers %}
         <ol>
         {% for customer in customers %}
-            <li>{{ customer.name }}</li>
+            <li id="{{ customer.uniqueId }}">{{ customer.name }}</li>
         {% endfor %}
         </ol>
     {% endif %}

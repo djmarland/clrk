@@ -4,11 +4,12 @@ namespace App\Mapper\Database;
 
 use App\Domain\Entity\Customer;
 use App\Domain\ValueObject\ID;
+use App\Mapper\MapperInterface;
 
 /**
  * Factory to create mappers as needed
  */
-class CustomerMapper
+class CustomerMapper implements MapperInterface
 {
 
     public function __construct($hydratorFactory = null)

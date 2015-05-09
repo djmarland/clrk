@@ -2,13 +2,14 @@
 namespace UnitTest\App\Domain\Entity;
 
 use App\Domain\ValueObject\ID;
+use App\Domain\ValueObject\Key;
 
 class ConstructorTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testGetKey()
     {
-        $id = new ID(123);
+        $id = new ID(0);
 
         $mockEntity = $this->getMockBuilder('App\Domain\Entity\Entity')
             ->disableOriginalConstructor()
@@ -16,6 +17,9 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
 
         $mockEntity->__construct($id);
 
-        $this->assertSame('X123', $mockEntity->getKey());
+        // full test of the key is in the key test
+        $key = $mockEntity->getKey();
+        $this->assertTrue($key instanceof Key);
+        $this->assertSame('000000', (string) $key);
     }
 }

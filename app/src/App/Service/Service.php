@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use Solution10\Config\Exception;
+use App\Domain\Exception\DataNotSetException;
 
 /**
  * Default factory setup
@@ -35,6 +35,8 @@ abstract class Service
             return $this->factories[self::FACTORY_DATABASE];
         }
         // @todo - be cleaner about this (custom exception)
-        throw new Exception('You tried to use a feature that needed Database, but it was not setup');
+        throw new DataNotSetException(
+            'You tried to use a feature that needed a Database factory, but it was not setup'
+        );
     }
 }
