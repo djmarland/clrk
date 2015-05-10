@@ -17,7 +17,7 @@ class SilexServiceFactory extends ServiceFactory
     public function __construct($app)
     {
 
-        $databaseQueryFactory = $this->getDatabaseQueryFactoryBuilder($app);
+        $databaseQueryFactory = $this->getDatabaseQueryFactory($app);
 
         parent::__construct(
             [
@@ -26,7 +26,7 @@ class SilexServiceFactory extends ServiceFactory
         );
     }
 
-    private function getDatabaseQueryFactoryBuilder($app)
+    private function getDatabaseQueryFactory($app)
     {
         // @todo - get the real silex info
         $host = 'bob';

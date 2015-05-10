@@ -35,7 +35,7 @@ class GetAlphabeticalTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->mockCustomersQuery->expects($this->once())->method('sortAlphabetically');
+        $this->mockCustomersQuery->expects($this->once())->method('order');
 
     }
 

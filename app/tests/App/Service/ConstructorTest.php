@@ -2,7 +2,6 @@
 namespace UnitTest\App\Service;
 
 use App\Service\Service;
-use Exception;
 
 class ConstructorTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,8 +28,7 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Exception
-     * @todo - this should be a better exception
+     * @expectedException \App\Domain\Exception\DataNotSetException
      */
     public function testFactoryMissing()
     {

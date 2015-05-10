@@ -34,7 +34,6 @@ abstract class Service
         if (isset($this->factories[self::FACTORY_DATABASE])) {
             return $this->factories[self::FACTORY_DATABASE];
         }
-        // @todo - be cleaner about this (custom exception)
         throw new DataNotSetException(
             'You tried to use a feature that needed a Database factory, but it was not setup'
         );

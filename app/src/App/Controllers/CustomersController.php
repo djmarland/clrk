@@ -20,7 +20,7 @@ class CustomersController extends Controller
      * Home (/)
      * @param Request     $request
      * @param Application $app
-     * @return Twig
+     * @return string
      */
     public function listAction(Request $request, Application $app)
     {

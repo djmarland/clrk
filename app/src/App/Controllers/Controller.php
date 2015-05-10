@@ -9,10 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Main Controller Class, others to inherit from
  */
-class Controller
+abstract class Controller
 {
-
-
+    /**
+     * @var
+     */
     protected $serviceFactory;
 
     /**
@@ -65,7 +66,7 @@ class Controller
     /**
      * Get the ServiceFactory
      * with the required config
-     * @param null $app
+     * @param Application $app
      * @return SilexServiceFactory
      */
     protected function getServiceFactory(Application $app = null)
