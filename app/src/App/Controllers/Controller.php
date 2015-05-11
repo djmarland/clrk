@@ -43,7 +43,7 @@ abstract class Controller
         // get the initial app settings
         $settings = $this->getServiceFactory()
             ->createService('Settings')
-            ->getAll();
+            ->get();
 
         if ($settings === null) {
             // if settings failed due to missing database: 404

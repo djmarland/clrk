@@ -9,10 +9,10 @@ class SettingsMapper extends Mapper
 {
     public function getDomainModel($item)
     {
-        $id = new ID($item['id']);
+        $id = new ID($item->id);
         $settings = new Settings(
             $id,
-            $item['activeStatus']
+            $item->active_status
         );
         return $settings;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Query\Database;
 
+use Doctrine\DBAL\Exception\ConnectionException;
+
 /**
  * Customers table
  * Class SettingsQuery
@@ -25,15 +27,14 @@ class SettingsQuery extends DatabaseQuery
     {
         $settings = $this->getEntity('Settings');
 
-        var_dump($settings->findOneBy(['id' => '1']));die;
-        // only one possible result type
-        var_dump($settings);die;
-
-        $queryResult = $this->dbClient->getResult();
-        if ($queryResult === null) {
+        try {
+            $data = $settings->findOneBy(['id' => '1']);
+        } catch (ConnectionException $e) {
+            // if the connection failed due to no database
             return null;
         }
 
+        $queryResult = new Result([$data]);
         $domainModels = array();
         foreach ($queryResult->getItems() as $item) {
             $domainModels[] = $this->mapperFactory->createSettings($item);
