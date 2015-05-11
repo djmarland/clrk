@@ -21,10 +21,10 @@ class HomeController extends Controller
      * @param Application $app
      * @return mixed
      */
-    public function indexAction(Request $request, Application $app)
+    public function indexAction(Request $request)
     {
         $this->set('name', 'John');
-        return $this->render($request, $app, 'home/index');
+        return $this->render($request, 'home/index');
     }
 
     /**
@@ -33,8 +33,8 @@ class HomeController extends Controller
      * @param Application $app
      * @return mixed
      */
-    public function styleguideAction(Request $request, Application $app)
+    public function styleguideAction(Request $request)
     {
-        return $this->render($request, $app, 'home/styleguide');
+        return $this->render($request, 'home/styleguide');
     }
 }

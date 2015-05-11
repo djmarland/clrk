@@ -25,10 +25,17 @@ class MapperFactory
         }
     }
 
-    private function createCustomer($data)
+    public function createCustomer($data)
     {
-        $customerMapper = new CustomerMapper();
+        $customerMapper = new CustomerMapper($this);
         $domain = $customerMapper->getDomainModel($data);
+        return $domain;
+    }
+
+    public function createSettings($data)
+    {
+        $settingsMapper = new SettingsMapper($this);
+        $domain = $settingsMapper->getDomainModel($data);
         return $domain;
     }
 }

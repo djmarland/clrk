@@ -22,9 +22,13 @@ class CustomersController extends Controller
      * @param Application $app
      * @return string
      */
-    public function listAction(Request $request, Application $app)
+    public function listAction(Request $request)
     {
-        $customersService = $this->getServiceFactory($app)
+        $this->set('customers', array())
+            ->set('name', 'Bob');
+        return $this->render($request, 'customers/list');
+
+        $customersService = $this->getServiceFactory()
             ->createService('Customers');
 
         $customers = $customersService->getAlphabetical();
@@ -48,6 +52,6 @@ class CustomersController extends Controller
 
         $this->set('customers', $presenters)
             ->set('name', 'Bob');
-        return $this->render($request, $app, 'customers/list');
+        return $this->render($request, 'customers/list');
     }
 }

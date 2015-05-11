@@ -13,9 +13,15 @@ use App\Helpers\LogHandlerFactory;
 date_default_timezone_set("Europe/London");
 
 $app['env'] = 'live';
-if (isset($app_env) && in_array($app_env, array('dev','unittests','int','test','live'))) {
+if (isset($app_env) && in_array($app_env, array('dev','unittests','alpha','beta','live'))) {
     $app['env'] = $app_env;
 }
+
+// figure out which client we are
+$host = $_SERVER['HTTP_HOST'];
+$parts = explode('.', $host);
+
+$app['clientName'] = reset($parts);
 
 //
 // Build config:

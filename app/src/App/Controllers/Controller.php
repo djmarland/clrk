@@ -17,16 +17,48 @@ abstract class Controller
     protected $serviceFactory;
 
     /**
+     * @var Application
+     */
+    protected $app;
+
+    /**
      * @var MasterPresenter
      */
     public $masterViewPresenter;
 
     /**
      * Initial setup of all Controller files
+     * @param Application $app
      */
-    public function __construct()
+    public function __construct(Application $app)
     {
+        $this->app = $app;
         $this->masterViewPresenter = new MasterPresenter();
+
+        $this->getSettings();
+    }
+
+    private function getSettings()
+    {
+        // get the initial app settings
+        $settings = $this->getServiceFactory()
+            ->createService('Settings')
+            ->getAll();
+
+        if ($settings === null) {
+            // if settings failed due to missing database: 404
+            $this->app->abort(404, "Client does not exist");
+        }
+
+        // if app is not active, throw to "not ready" page
+        if (!$settings->isActive()) {
+            $message = ($settings->isSuspended()) ?
+                        'Account has been suspended' :
+                        'Account has not yet been initialised';
+            $this->app->abort(202, $message);
+        }
+
+        $this->set('settings', $settings);
     }
 
     /**
@@ -45,6 +77,16 @@ abstract class Controller
         return $this;
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     * @throws \App\Domain\Exception\DataNotSetException
+     */
+    public function get($key)
+    {
+         return $this->masterViewPresenter->get($key);
+    }
+
 
     /**
      * Once complete, render the view
@@ -53,37 +95,35 @@ abstract class Controller
      * @param $viewPath string optional
      * @return string
      */
-    public function render(Request $request, Application $app, $viewPath)
+    public function render(Request $request, $viewPath)
     {
         $format = $request->get('format', null);
         if ($format == 'json') {
-            return $app->json($this->masterViewPresenter->getFeedData());
+            return $this->app->json($this->masterViewPresenter->getFeedData());
         }
         $viewPath .= '.html.twig';
-        return $app['twig']->render($viewPath, $this->masterViewPresenter->getData());
+        return $this->app['twig']->render($viewPath, $this->masterViewPresenter->getData());
     }
 
     /**
      * Get the ServiceFactory
      * with the required config
-     * @param Application $app
      * @return SilexServiceFactory
      */
-    protected function getServiceFactory(Application $app = null)
+    public function getServiceFactory()
     {
         if (!$this->serviceFactory) {
             // I'm a silex app, so I'm going to call
             // the Silex Service Factory and pass in myself
-            $this->serviceFactory = new SilexServiceFactory($app);
+            $this->serviceFactory = new SilexServiceFactory($this->app);
         }
-
         return $this->serviceFactory;
     }
 
     /**
      * @param $factory
      */
-    protected function setServiceFactory($factory)
+    public function setServiceFactory($factory)
     {
         $this->serviceFactory = $factory;
     }

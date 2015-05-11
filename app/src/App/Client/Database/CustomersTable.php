@@ -9,16 +9,6 @@ use App\Query\Database\Result;
  */
 class CustomersTable extends DatabaseClient
 {
-
-    /**
-     * @param $dbSettings
-     */
-    public function __construct(
-        $dbSettings
-    ) {
-
-    }
-
     public function getResult()
     {
         // @todo this is where a SQL query is constructed

@@ -5,7 +5,7 @@ namespace App\Query\Database;
 /**
  * Customers table
  * Class CustomersQuery
- * @package App\Query\MySQL
+ * @package App\Query\Database
  */
 class CustomersQuery extends DatabaseQuery
 {

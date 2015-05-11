@@ -4,7 +4,9 @@
     "silex/silex": "*@stable",
     "solution10/config": "~1.0",
     "twig/twig": "~1.8",
-    "monolog/monolog": "~1.0"
+    "monolog/monolog": "~1.0",
+    "doctrine/dbal": "^2.5",
+    "doctrine/orm": "^2.5"
   },
 
   "require-dev": {

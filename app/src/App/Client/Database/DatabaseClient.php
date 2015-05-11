@@ -2,19 +2,25 @@
 
 namespace App\Client\Database;
 
+use Doctrine\DBAL\Driver\Connection;
+
 /**
  * Class DatabaseClient
  */
 abstract class DatabaseClient implements DatabaseClientInterface
 {
+    /**
+     * @var
+     */
+    protected $connection;
 
     /**
-     * @param $dbSettings
+     * @param Connection $connection
      */
     public function __construct(
-        $dbSettings
+        Connection $connection
     ) {
-
+        $this->connection = $connection;
     }
 
     /**

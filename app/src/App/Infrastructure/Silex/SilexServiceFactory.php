@@ -5,6 +5,7 @@ namespace App\Infrastructure\Silex;
 use App\Infrastructure\ServiceFactory;
 use App\Query\DatabaseQueryFactory;
 use App\Service\Service;
+use Silex\Application;
 
 /**
  * Default factory setup
@@ -14,7 +15,7 @@ use App\Service\Service;
 class SilexServiceFactory extends ServiceFactory
 {
 
-    public function __construct($app)
+    public function __construct(Application $app)
     {
 
         $databaseQueryFactory = $this->getDatabaseQueryFactory($app);
@@ -29,16 +30,17 @@ class SilexServiceFactory extends ServiceFactory
     private function getDatabaseQueryFactory($app)
     {
         // @todo - get the real silex info
-        $host = 'bob';
-        $database = 'bob';
-        $username = 'bob';
-        $password = 'bob';
+        $host       = $app['config']->get('database.hostname');
+        $database   = $app['config']->get('database.db_prefix') . $app['clientName'];
+        $username   = $app['config']->get('database.user');
+        $password   = $app['config']->get('database.password');
 
         return new DatabaseQueryFactory(
             $host,
             $database,
             $username,
-            $password
+            $password,
+            'pdo_pgsql'
         );
     }
 }

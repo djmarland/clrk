@@ -3,45 +3,54 @@
 namespace App\Query;
 
 use App\Mapper\Database\MapperFactory;
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Persistence\Mapping\Driver\StaticPHPDriver;
+use Doctrine\ORM\Configuration;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Default factory setup
  * Class DatabaseQueryFactory
  * @package App\Infrastructure
+ * @internal
  */
 class DatabaseQueryFactory
 {
 
-    /**
-     * @var
-     */
-    private $host;
+    private $entityManager;
 
     /**
-     * @var
+     * @param $host
+     * @param $database
+     * @param $username
+     * @param $password
+     * @param $driver
      */
-    private $database;
-
-    /**
-     * @var
-     */
-    private $username;
-
-    /**
-     * @var
-     */
-    private $password;
-
     public function __construct(
         $host,
         $database,
         $username,
-        $password
+        $password,
+        $driver
     ) {
-        $this->host = $host;
-        $this->database = $database;
-        $this->username = $username;
-        $this->password = $password;
+      //  $config = Setup::createConfiguration();
+        $connectionParams = array(
+            'dbname'    => $database,
+            'user'      => $username,
+            'password'  => $password,
+            'host'      => $host,
+            'driver'    => $driver
+        );
+
+
+        $config = new Configuration();
+        $config->setMetadataDriverImpl(new StaticPHPDriver([]));
+        $config->setMetadataCacheImpl(new ArrayCache()); // @todo - allow this to use APC
+        $config->setProxyDir(__DIR__ . '/Proxies');
+        $config->setProxyNamespace('Proxies');
+        //$this->connection = DriverManager::getConnection($connectionParams, $config);
+        $this->entityManager = EntityManager::create($connectionParams, $config);
+        //$this->entityManager->getConfiguration()($driver);
     }
 
     /**
@@ -52,11 +61,12 @@ class DatabaseQueryFactory
     {
         // @todo - database info should have been passed through
 
-        $table = '\App\Client\Database\\' . $queryName . 'Table';
-        $dbClient = new $table(array());
+      //  $table = '\App\Client\Database\\' . $queryName . 'Table';
+       // $dbClient = new $table($this->connection);
+
         $mapperFactory = new MapperFactory();
 
         $className = '\App\Query\Database\\' . $queryName . 'Query';
-        return new $className($dbClient, $mapperFactory);
+        return new $className($this->entityManager, $mapperFactory);
     }
 }

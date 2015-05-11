@@ -5,6 +5,7 @@ namespace App\Query\Database;
 use App\Client\Database\DatabaseClientInterface;
 use App\Mapper\Database\MapperFactory;
 use App\Query\QueryInterface;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Default Database query setup
@@ -27,7 +28,7 @@ abstract class DatabaseQuery implements QueryInterface
     /**
      * @var
      */
-    protected $dbClient;
+    protected $entityManager;
 
     /**
      * @var
@@ -35,14 +36,14 @@ abstract class DatabaseQuery implements QueryInterface
     protected $mapperFactory;
 
     /**
-     * @param $dbClient
-     * @param $mapperFactory
+     * @param EntityManager $entityManager
+     * @param MapperFactory $mapperFactory
      */
     public function __construct(
-        DatabaseClientInterface $dbClient,
+        EntityManager $entityManager,
         MapperFactory $mapperFactory
     ) {
-        $this->dbClient = $dbClient;
+        $this->entityManager = $entityManager;
         $this->mapperFactory = $mapperFactory;
     }
 
@@ -81,12 +82,18 @@ abstract class DatabaseQuery implements QueryInterface
         return $this;
     }
 
+    protected function getEntity($name)
+    {
+        return $this->entityManager->getRepository('App\Client\Database\Entity\\' . $name );
+    }
+
     /**
      * @return mixed
-     */
+     *
     public function getResult()
     {
         $queryResult = $this->dbClient->getResult();
+
         $domainModels = array();
         foreach ($queryResult->getItems() as $item) {
             $domainModels[] = $this->mapperFactory->getDomainModel($item);
@@ -94,4 +101,5 @@ abstract class DatabaseQuery implements QueryInterface
         $queryResult->setDomainModels($domainModels);
         return $queryResult;
     }
+     */
 }

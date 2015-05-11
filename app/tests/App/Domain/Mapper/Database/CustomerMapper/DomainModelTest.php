@@ -5,6 +5,7 @@ namespace UnitTest\App\Domain\Mapper\Database\CustomerMapper;
 use App\Domain\Entity\Customer;
 use App\Domain\ValueObject\ID;
 use App\Mapper\Database\CustomerMapper;
+use App\Mapper\Database\MapperFactory;
 
 class DomainModelTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +16,8 @@ class DomainModelTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->mapper = new CustomerMapper();
+        $factory = new MapperFactory();
+        $this->mapper = new CustomerMapper($factory);
     }
 
     public function testCreateStandardDomainModel()

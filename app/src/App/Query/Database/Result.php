@@ -82,4 +82,17 @@ class Result implements QueryResultInterface
     {
         return $this->domainModels;
     }
+
+    /**
+     * Get a single domain model (always the first)
+     * @return mixed|null
+     */
+    public function getDomainModel()
+    {
+        $models = $this->getDomainModels();
+        if (!empty($models)) {
+            return reset($models);
+        }
+        return null;
+    }
 }

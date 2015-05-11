@@ -260,7 +260,7 @@ hhvm:
         error_reporting: '-1'
         date.timezone: UTC
 mysql:
-    install: '1'
+    install: '0'
     settings:
         version: '5.6'
         root_password: root
@@ -278,17 +278,24 @@ mysql:
             privileges:
                 - ALL
 postgresql:
-    install: '0'
+    install: '1'
     settings:
         global:
             encoding: UTF8
             version: '9.3'
         server:
             postgres_password: '123'
-    databases: {  }
-    users: {  }
+    databases:
+        postsqlnd_wmsgmcgw2rze:
+            dbname: demo
+            owner: 'user'
+    users:
+        postsqlnu_a6vdjqp1t42g:
+            username: user
+            password: 'password'
+            superuser: '1'
     grants: {  }
-    adminer: 0
+    adminer: '1'
 mongodb:
     install: '0'
     settings:
