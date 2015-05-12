@@ -48,9 +48,7 @@ class DatabaseQueryFactory
         $config->setMetadataCacheImpl(new ArrayCache()); // @todo - allow this to use APC
         $config->setProxyDir(__DIR__ . '/Proxies');
         $config->setProxyNamespace('Proxies');
-        //$this->connection = DriverManager::getConnection($connectionParams, $config);
         $this->entityManager = EntityManager::create($connectionParams, $config);
-        //$this->entityManager->getConfiguration()($driver);
     }
 
     /**
@@ -59,11 +57,6 @@ class DatabaseQueryFactory
      */
     public function createQuery($queryName)
     {
-        // @todo - database info should have been passed through
-
-      //  $table = '\App\Client\Database\\' . $queryName . 'Table';
-       // $dbClient = new $table($this->connection);
-
         $mapperFactory = new MapperFactory();
 
         $className = '\App\Query\Database\\' . $queryName . 'Query';

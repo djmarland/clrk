@@ -52,7 +52,7 @@ class Result implements QueryResultInterface
     /**
      * @param $models
      */
-    public function setDomainModels($models)
+    public function setDomainModels(array $models)
     {
         $this->domainModels = $models;
     }

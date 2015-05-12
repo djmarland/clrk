@@ -12,7 +12,7 @@ class SettingsService extends Service
     public function get()
     {
         $query = $this->getDatabaseQueryFactory()->createQuery('Settings');
-        $result = $query->getResult();
+        $result = $query->get();
         if ($result === null) {
             return null; // no settings exist
         }

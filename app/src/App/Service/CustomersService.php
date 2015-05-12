@@ -19,12 +19,12 @@ class CustomersService extends Service
     ) {
 
         $query = $this->getDatabaseQueryFactory()->createQuery('Customers');
-        $query->order();
+       /* $query->order();
         $query->setPagination(
             $perPage,
             $page
-        );
+        ); */
 
-        return $query->getResult();
+        return $query->getResult(null);
     }
 }

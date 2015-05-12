@@ -23,7 +23,7 @@ class SettingsQuery extends DatabaseQuery
     /**
      * @return mixed
      */
-    public function getResult()
+    public function get()
     {
         $settings = $this->getEntity('Settings');
 
@@ -34,12 +34,6 @@ class SettingsQuery extends DatabaseQuery
             return null;
         }
 
-        $queryResult = new Result([$data]);
-        $domainModels = array();
-        foreach ($queryResult->getItems() as $item) {
-            $domainModels[] = $this->mapperFactory->createSettings($item);
-        }
-        $queryResult->setDomainModels($domainModels);
-        return $queryResult;
+        return parent::getResult($data);
     }
 }

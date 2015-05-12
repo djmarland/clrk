@@ -18,4 +18,9 @@ class CustomersQuery extends DatabaseQuery
         $this->sortBy('name');
         return $this;
     }
+
+    public function getResult($data)
+    {
+        return null;
+    }
 }

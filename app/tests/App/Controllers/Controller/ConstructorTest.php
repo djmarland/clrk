@@ -24,7 +24,7 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
         );
 
         $mockService->expects($this->once())
-            ->method('getAll')
+            ->method('get')
             ->will($this->returnValue($settings));
 
         $mockServiceFactory = $this->getMockBuilder('App\Infrastructure\ServiceFactory')

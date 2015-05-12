@@ -2,6 +2,8 @@
 
 namespace App\Mapper\Database;
 
+use App\Client\Database\Entity\Settings;
+
 /**
  * Factory to create mappers as needed
  */
@@ -16,6 +18,11 @@ class MapperFactory
     {
         // decide which mapper is needed based on the incoming data
         // this needs to be able to recognise data, and sub data achieved through joins
+        if ($item instanceof Settings) {
+            return $this->createSettings($item);
+        }
+
+
         $type = 'customer'; // hack. of course they're not all customers
 
         $domain = null;

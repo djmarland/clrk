@@ -10,6 +10,10 @@ class Settings
     public $id;
     public $active_status;
 
+    /**
+     * @codeCoverageIgnore
+     * @param ClassMetadata $metadata
+     */
     public static function loadMetadata(ClassMetadata $metadata)
     {
         $metadata->mapField(array(
