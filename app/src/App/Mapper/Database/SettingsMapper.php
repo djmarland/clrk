@@ -12,6 +12,8 @@ class SettingsMapper extends Mapper
         $id = new ID($item->id);
         $settings = new Settings(
             $id,
+            $item->created_at,
+            $item->updated_at,
             $item->active_status
         );
         return $settings;

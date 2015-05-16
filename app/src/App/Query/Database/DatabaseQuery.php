@@ -52,7 +52,9 @@ abstract class DatabaseQuery
 
     public function getResult($data)
     {
-        $data = (array) $data;
+        if (!is_array($data)) {
+            $data = [$data];
+        }
 
         $queryResult = new Result($data);
         $domainModels = array();

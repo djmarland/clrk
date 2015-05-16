@@ -9,6 +9,8 @@ class Settings
 
     public $id;
     public $active_status;
+    public $updated_at;
+    public $created_at;
 
     /**
      * @codeCoverageIgnore
@@ -28,6 +30,16 @@ class Settings
             'fieldName' => 'active_status',
             'type' => 'integer',
             'default' => 0
+        ));
+
+        $metadata->mapField(array(
+            'fieldName' => 'created_at',
+            'type' => 'datetime'
+        ));
+
+        $metadata->mapField(array(
+            'fieldName' => 'updated_at',
+            'type' => 'datetime'
         ));
     }
 

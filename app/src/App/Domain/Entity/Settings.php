@@ -18,15 +18,21 @@ class Settings extends Entity
     const STATUS_ACTIVE = 1;
 
     /**
-     * @param ID      $id
+     * @param ID $id
+     * @param $createdAt
+     * @param $updatedAt
      * @param $activeStatus
      */
     public function __construct(
         ID $id,
+        $createdAt,
+        $updatedAt,
         $activeStatus
     ) {
         parent::__construct(
-            $id
+            $id,
+            $createdAt,
+            $updatedAt
         );
 
         $this->activeStatus = $activeStatus;

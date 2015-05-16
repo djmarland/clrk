@@ -7,5 +7,6 @@
     <h1>Home</h1>
     <p>Name: {{ name }}</p>
     <p>Status: {{ settings.activeStatus }}</p>
+    <p>CreatedAt: {{ settings.createdAt.format('Y-m-d H:i:s') }}</p>
 
 {% endblock %}

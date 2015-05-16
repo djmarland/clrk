@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Apply new migrations
+# ./script/migrate migrations:migrate
+
+# Rollback latest migration
+# ./script/migrate.sh migrations:migrate prev
+
 # get the list of clients
 
 # generate the connections list (differs by environment)

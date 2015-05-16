@@ -10,13 +10,15 @@ use Doctrine\DBAL\Schema\Schema;
  */
 class Version20150510164359 extends AbstractMigration
 {
+    const TABLE_NAME = 'Settings';
+
     /**
      * @param Schema $schema
      */
     public function up(Schema $schema)
     {
         // Create the initial Settings table
-        $table = $schema->createTable('settings');
+        $table = $schema->createTable(self::TABLE_NAME);
         $table->addColumn('id', 'integer', [
             'unsigned' => true,
             'autoincrement' => true,
@@ -26,8 +28,24 @@ class Version20150510164359 extends AbstractMigration
         $table->addColumn('active_status', 'integer', [
             'notnull' => true,
             'default'  => 0
-        ], 0);
+        ]);
+
+        $table->addColumn('created_at', 'datetime', [
+            'notnull' => true
+        ]);
+
+        $table->addColumn('updated_at', 'datetime', [
+            'notnull' => true
+        ]);
         $table->setPrimaryKey(['id']);
+    }
+
+    public function postUp(Schema $schema) {
+        $this->connection->executeQuery(
+            "INSERT INTO " . self::TABLE_NAME ."
+              (active_status, created_at, updated_at)
+              VALUES (0, now(), now())"
+        );
     }
 
     /**

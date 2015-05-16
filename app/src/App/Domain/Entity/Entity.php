@@ -14,9 +14,13 @@ abstract class Entity
     const KEY_PREFIX = null;
 
     public function __construct(
-        ID $id
+        ID $id,
+        $createdAt,
+        $updatedAt
     ) {
         $this->id = $id;
+        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -30,6 +34,32 @@ abstract class Entity
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
     private $key;

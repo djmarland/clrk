@@ -260,12 +260,12 @@ hhvm:
         error_reporting: '-1'
         date.timezone: UTC
 mysql:
-    install: '0'
+    install: '1'
     settings:
         version: '5.6'
         root_password: root
         override_options: {  }
-    adminer: '0'
+    adminer: '1'
     users:
         mysqlnu_yxu25ggle2gc:
             name: dbuser
@@ -278,7 +278,7 @@ mysql:
             privileges:
                 - ALL
 postgresql:
-    install: '1'
+    install: '0'
     settings:
         global:
             encoding: UTF8

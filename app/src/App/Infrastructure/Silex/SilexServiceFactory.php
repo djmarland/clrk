@@ -34,13 +34,14 @@ class SilexServiceFactory extends ServiceFactory
         $database   = $app['config']->get('database.db_prefix') . $app['clientName'];
         $username   = $app['config']->get('database.user');
         $password   = $app['config']->get('database.password');
+        $driver    = $app['config']->get('database.driver');
 
         return new DatabaseQueryFactory(
             $host,
             $database,
             $username,
             $password,
-            'pdo_pgsql'
+            $driver
         );
     }
 }

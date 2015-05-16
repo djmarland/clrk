@@ -1,8 +1,8 @@
 <?php
 return [
     'host'  => '127.0.0.1',
-    'user'      => 'user',
-    'password'  => 'password',
+    'user'      => 'dbuser',
+    'password'  => '123',
     'dbname'    => 'client_demo',
-    'driver'    => 'pdo_pgsql'
+    'driver'    => 'pdo_mysql'
 ];
