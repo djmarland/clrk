@@ -18,4 +18,11 @@ class SettingsService extends Service
         }
         return $result->getDomainModel();
     }
+
+    public function save($settings)
+    {
+        $query = $this->getDatabaseQueryFactory()->createQuery('Settings');
+        $result = $query->save($settings);
+        return $result;
+    }
 }

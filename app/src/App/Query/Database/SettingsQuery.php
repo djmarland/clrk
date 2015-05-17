@@ -36,4 +36,15 @@ class SettingsQuery extends DatabaseQuery
 
         return parent::getResult($data);
     }
+
+    public function save($domain)
+    {
+        $mapper = $this->mapperFactory->getMapper($domain);
+
+        $entity = $mapper->getOrmEntity($domain);
+
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+        return true;
+    }
 }

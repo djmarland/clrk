@@ -2,7 +2,8 @@
 
 namespace App\Mapper\Database;
 
-use App\Client\Database\Entity\Settings;
+use App\Client\Database\Entity\Settings as SettingsOrm;
+use App\Domain\Entity\Settings;
 
 /**
  * Factory to create mappers as needed
@@ -14,12 +15,13 @@ class MapperFactory
     {
     }
 
-    public function getDomainModel($item)
+    public function getMapper($item)
     {
         // decide which mapper is needed based on the incoming data
         // this needs to be able to recognise data, and sub data achieved through joins
-        if ($item instanceof Settings) {
-            return $this->createSettings($item);
+        if ($item instanceof SettingsOrm ||
+            $item instanceof Settings) {
+            return $this->createSettings();
         }
 
 
@@ -28,21 +30,20 @@ class MapperFactory
         $domain = null;
 
         if ($type == 'customer') {
-            return $this->createCustomer($item);
+            return $this->createCustomer();
         }
     }
 
-    public function createCustomer($data)
+    public function createCustomer()
     {
         $customerMapper = new CustomerMapper($this);
         $domain = $customerMapper->getDomainModel($data);
         return $domain;
     }
 
-    public function createSettings($data)
+    public function createSettings()
     {
         $settingsMapper = new SettingsMapper($this);
-        $domain = $settingsMapper->getDomainModel($data);
-        return $domain;
+        return $settingsMapper;
     }
 }

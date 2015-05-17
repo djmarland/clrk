@@ -30,6 +30,11 @@ class Version20150510164359 extends AbstractMigration
             'default'  => 0
         ]);
 
+
+        $table->addColumn('application_name', 'string', [
+            'notnull' => true
+        ]);
+
         $table->addColumn('created_at', 'datetime', [
             'notnull' => true
         ]);
@@ -42,9 +47,9 @@ class Version20150510164359 extends AbstractMigration
 
     public function postUp(Schema $schema) {
         $this->connection->executeQuery(
-            "INSERT INTO " . self::TABLE_NAME ."
-              (active_status, created_at, updated_at)
-              VALUES (0, now(), now())"
+            'INSERT INTO ' . self::TABLE_NAME . '
+              (active_status, application_name, created_at, updated_at)
+              VALUES (0, "Application", now(), now())'
         );
     }
 

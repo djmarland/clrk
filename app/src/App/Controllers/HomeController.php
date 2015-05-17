@@ -17,20 +17,31 @@ class HomeController extends Controller
 {
     /**
      * Home (/)
-     * @param Request     $request
-     * @param Application $app
+     * @param Request $request
      * @return mixed
      */
     public function indexAction(Request $request)
     {
         $this->set('name', 'John');
+
+        if ($request->getMethod() == 'POST') {
+            $applicationName = $request->request->get('application-name');
+            $settings = $this->get('settings');
+            $settings->setApplicationName($applicationName);
+
+            $this->getServiceFactory()
+                ->createService('Settings')
+                ->save($settings);
+
+            $this->set('settings', $settings);
+        }
+
         return $this->render($request, 'home/index');
     }
 
     /**
-     * Styleguide (/styleguide)
-     * @param Request     $request
-     * @param Application $app
+     * Style guide (/styleguide)
+     * @param Request $request
      * @return mixed
      */
     public function styleguideAction(Request $request)

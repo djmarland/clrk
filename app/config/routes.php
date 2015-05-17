@@ -24,6 +24,7 @@ $app->get('/customers', 'controllers.customers:listAction')->bind('customers_lis
 
 $app->get('/styleguide', 'controllers.home:styleguideAction')->bind('styleguide');
 $app->get('/', 'controllers.home:indexAction')->bind('home');
+$app->post('/', 'controllers.home:indexAction');
 
 $app->error(function (\Exception $e, $code) use ($app) {
     if (in_array($code, [202, 404])) {

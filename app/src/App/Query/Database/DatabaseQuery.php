@@ -59,7 +59,8 @@ abstract class DatabaseQuery
         $queryResult = new Result($data);
         $domainModels = array();
         foreach ($queryResult->getItems() as $item) {
-            $domainModels[] = $this->mapperFactory->getDomainModel($item);
+            $mapper = $this->mapperFactory->getMapper($item);
+            $domainModels[] = $mapper->getDomainModel($item);
         }
         $queryResult->setDomainModels($domainModels);
         return $queryResult;

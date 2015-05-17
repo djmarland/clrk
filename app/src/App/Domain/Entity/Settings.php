@@ -22,12 +22,14 @@ class Settings extends Entity
      * @param $createdAt
      * @param $updatedAt
      * @param $activeStatus
+     * @param $appName
      */
     public function __construct(
-        ID $id,
+        $id,
         $createdAt,
         $updatedAt,
-        $activeStatus
+        $activeStatus,
+        $appName
     ) {
         parent::__construct(
             $id,
@@ -36,15 +38,16 @@ class Settings extends Entity
         );
 
         $this->activeStatus = $activeStatus;
+        $this->applicationName = $appName;
     }
 
     /**
-     * @var string
+     * @var integer
      */
     private $activeStatus;
 
     /**
-     * @return string
+     * @return integer
      */
     public function getActiveStatus()
     {
@@ -59,5 +62,27 @@ class Settings extends Entity
     public function isSuspended()
     {
         return ($this->activeStatus == self::STATUS_SUSPENDED);
+    }
+
+    /**
+     * @var string
+     */
+    private $applicationName;
+
+    /**
+     * @return string
+     */
+    public function getApplicationName()
+    {
+        return $this->applicationName;
+    }
+
+    public function setApplicationName($name)
+    {
+        if ($name != $this->applicationName) {
+            // @todo - validate not empty
+            $this->applicationName = $name;
+            $this->updated();
+        }
     }
 }

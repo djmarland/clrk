@@ -4,13 +4,11 @@ namespace App\Client\Database\Entity;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
 
-class Settings
+class Settings extends Entity
 {
 
-    public $id;
     public $active_status;
-    public $updated_at;
-    public $created_at;
+    public $application_name;
 
     /**
      * @codeCoverageIgnore
@@ -18,13 +16,7 @@ class Settings
      */
     public static function loadMetadata(ClassMetadata $metadata)
     {
-        $metadata->mapField(array(
-            'id' => true,
-            'fieldName' => 'id',
-            'type' => 'integer',
-            'primaryKey' => true,
-            'autoIncrement' => true
-        ));
+        parent::commonMetadata($metadata);
 
         $metadata->mapField(array(
             'fieldName' => 'active_status',
@@ -33,13 +25,8 @@ class Settings
         ));
 
         $metadata->mapField(array(
-            'fieldName' => 'created_at',
-            'type' => 'datetime'
-        ));
-
-        $metadata->mapField(array(
-            'fieldName' => 'updated_at',
-            'type' => 'datetime'
+            'fieldName' => 'application_name',
+            'type' => 'string'
         ));
     }
 

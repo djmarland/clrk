@@ -6,7 +6,12 @@
 
     <h1>Home</h1>
     <p>Name: {{ name }}</p>
+
     <p>Status: {{ settings.activeStatus }}</p>
-    <p>CreatedAt: {{ settings.createdAt.format('Y-m-d H:i:s') }}</p>
+    <form method="post">
+        <p>Application Name: <input name="application-name" value="{{ settings.applicationName }}" /></p>
+        <button type="submit">Save</button>
+    </form>
+    <p>UpdatedAt: {{ settings.updatedAt.format('Y-m-d H:i:s') }}</p>
 
 {% endblock %}
