@@ -1,6 +1,6 @@
 <?php
 
-namespace UnitTest\App\Domain\Mapper\Database\CustomerMapper;
+namespace UnitTest\App\Mapper\Database\CustomerMapper;
 
 use App\Domain\Entity\Customer;
 use App\Domain\ValueObject\ID;
@@ -23,10 +23,13 @@ class DomainModelTest extends \PHPUnit_Framework_TestCase
     public function testCreateStandardDomainModel()
     {
         $name = 'Jeff Jeffries';
+        $date = new \DateTime();
 
-        $input = [
+        $input = (object) [
             'id'    => 1,
-            'name'  => $name
+            'name'  => $name,
+            'createdAt' => $date,
+            'updatedAt' => $date
         ];
 
         $customer = $this->mapper->getDomainModel($input);

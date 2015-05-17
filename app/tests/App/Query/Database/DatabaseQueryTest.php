@@ -45,13 +45,28 @@ class DatabaseQueryTest extends \PHPUnit_Framework_TestCase
     public function testGetResult()
     {
         // mapper setup
-        $this->mockMapperFactory->expects($this->any())
+        $mapper = $this->getMockBuilder('App\Mapper\Database\Mapper')
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mapper->expects($this->any())
             ->method('getDomainModel')
             ->will($this->returnCallback(function ($input) {
                 $results = [
                     'a' => 1,
                     'b' => 2,
                     'c' => 3
+                ];
+                return $results[$input];
+            }));
+
+        // mapper factory setup
+        $this->mockMapperFactory->expects($this->any())
+            ->method('getMapper')
+            ->will($this->returnCallback(function ($input) use ($mapper) {
+                $results = [
+                    'a' => $mapper,
+                    'b' => $mapper,
+                    'c' => $mapper
                 ];
                 return $results[$input];
             }));

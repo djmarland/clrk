@@ -10,12 +10,13 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
     public function testGetKey()
     {
         $id = new ID(0);
+        $date = new \DateTime();
 
         $mockEntity = $this->getMockBuilder('App\Domain\Entity\Entity')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
 
-        $mockEntity->__construct($id);
+        $mockEntity->__construct($id, $date, $date);
 
         // full test of the key is in the key test
         $key = $mockEntity->getKey();

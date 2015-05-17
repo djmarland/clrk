@@ -20,7 +20,10 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
 
         $settings = new Settings(
             new ID(1),
-            1
+            null,
+            null,
+            1,
+            'App'
         );
 
         $mockService->expects($this->once())

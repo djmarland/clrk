@@ -14,17 +14,23 @@ class Customer extends Entity
     const KEY_PREFIX = 'C';
 
     /**
-     * @param ID      $id
+     * @param ID $id
+     * @param $createdAt
+     * @param $updatedAt
      * @param $name
      * @param Address $address
      */
     public function __construct(
         ID $id,
+        $createdAt,
+        $updatedAt,
         $name,
         Address $address = null
     ) {
         parent::__construct(
-            $id
+            $id,
+            $createdAt,
+            $updatedAt
         );
 
         $this->name = $name;

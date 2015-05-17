@@ -13,8 +13,11 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
     {
         $id = new ID(123);
         $name = 'Lucy Luck';
+        $date = new \DateTime();
         $customer = new Customer(
             $id,
+            $date,
+            $date,
             $name
         );
 
@@ -31,11 +34,14 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
             $street,
             $postcode
         );
+        $date = new \DateTime();
 
         $id = new ID(123);
         $name = 'Lucy Luck';
         $customer = new Customer(
             $id,
+            $date,
+            $date,
             $name,
             $address
         );

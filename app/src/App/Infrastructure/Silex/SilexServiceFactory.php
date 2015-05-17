@@ -29,12 +29,11 @@ class SilexServiceFactory extends ServiceFactory
 
     private function getDatabaseQueryFactory($app)
     {
-        // @todo - get the real silex info
         $host       = $app['config']->get('database.hostname');
         $database   = $app['config']->get('database.db_prefix') . $app['clientName'];
         $username   = $app['config']->get('database.user');
         $password   = $app['config']->get('database.password');
-        $driver    = $app['config']->get('database.driver');
+        $driver     = $app['config']->get('database.driver');
 
         return new DatabaseQueryFactory(
             $host,
