@@ -5,6 +5,7 @@
 
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
+use Silex\Provider\UrlGeneratorServiceProvider;
 use Monolog\Logger;
 use Solution10\Config\Config;
 use App\Helpers\LogHandlerFactory;
@@ -32,6 +33,11 @@ $app['config'] = new Config(__DIR__.'/config', ($app['env'] != 'live')? $app['en
 // Register Controller Service Provider
 //
 $app->register(new ServiceControllerServiceProvider());
+
+//
+// Register URL generator
+//
+$app->register(new UrlGeneratorServiceProvider());
 
 //
 // Set up Twig

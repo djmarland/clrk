@@ -31,7 +31,6 @@ class SettingsMapper extends Mapper
         }
         $entity->id = 1; // must always be 1 (only one row allowed)
         $entity->application_name = $domain->getApplicationName();
-        $entity->updated_at = $domain->getUpdatedAt();
         return $entity;
     }
 }

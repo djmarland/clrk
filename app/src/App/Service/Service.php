@@ -26,8 +26,12 @@ abstract class Service
         $factories = []
     ) {
         $this->factories = $factories;
+        $this->setUp();
     }
 
+    public function setUp()
+    {
+    }
 
     public function getDatabaseQueryFactory()
     {

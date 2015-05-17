@@ -13,8 +13,8 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
 
         $customer = new Customer(
             new ID(0),
-            null,
-            null,
+            new \DateTime(),
+            new \DateTime(),
             $name
         );
 

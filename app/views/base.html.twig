@@ -2,20 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}Test Application{% endblock %} - {{ settings.applicationName }}</title>
+    <title>{% block title %}Dashboard{% endblock %} - {{ settings.applicationName }}</title>
 
-    <!--[if (gt IE 8)|!(IE)]><!-->
-    <link rel="stylesheet" href="{{asset('css/global.css')}}" />
-    <!--<![endif]-->
-    <!--[if (lt IE 9)&(!IEMobile)]>
-    <link rel="stylesheet" href="{{asset('css/global-ie.css')}}" />
-    <![endif]-->
+    <link rel="stylesheet" href="{{asset('global.css')}}" />
 </head>
 <body>
 <div class="header">App</div>
 <div class="content">
     {% block body %}{% endblock %}
 </div>
+<!--
 <script src="{{asset('js/bootstrap.js')}}"></script>
+-->
 </body>
 </html>

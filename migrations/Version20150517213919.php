@@ -5,9 +5,9 @@ namespace Migrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-class Version20150510164359 extends AbstractMigration
+class Version20150517213919 extends AbstractMigration
 {
-    const TABLE_NAME = 'settings';
+    const TABLE_NAME = 'users';
 
     /**
      * @param Schema $schema
@@ -31,24 +31,21 @@ class Version20150510164359 extends AbstractMigration
             'notnull' => true
         ]);
 
-        $table->addColumn('active_status', 'integer', [
-            'notnull' => true,
-            'default'  => 0
-        ]);
-
-
-        $table->addColumn('application_name', 'string', [
+        $table->addColumn('name', 'string', [
             'notnull' => true
         ]);
-    }
 
-    public function postUp(Schema $schema) {
-        // populate the first and only row
-        $this->connection->executeQuery(
-            'INSERT INTO ' . self::TABLE_NAME . '
-              (active_status, application_name, created_at, updated_at)
-              VALUES (0, "Application", now(), now())'
-        );
+        $table->addColumn('email', 'string', [
+            'notnull' => true
+        ]);
+
+        $table->addColumn('password_digest', 'string', [
+            'notnull' => true
+        ]);
+
+        $table->addColumn('is_admin', 'boolean', [
+            'default' => false
+        ]);
     }
 
     /**

@@ -3,7 +3,9 @@
 namespace App\Mapper\Database;
 
 use App\Client\Database\Entity\Settings as SettingsOrm;
+use App\Client\Database\Entity\User as UserOrm;
 use App\Domain\Entity\Settings;
+use App\Domain\Entity\User;
 
 /**
  * Factory to create mappers as needed
@@ -23,6 +25,10 @@ class MapperFactory
             $item instanceof Settings) {
             return $this->createSettings();
         }
+        if ($item instanceof UserOrm ||
+            $item instanceof User) {
+            return $this->createUser();
+        }
 
 
         $type = 'customer'; // hack. of course they're not all customers
@@ -37,13 +43,18 @@ class MapperFactory
     public function createCustomer()
     {
         $customerMapper = new CustomerMapper($this);
-        $domain = $customerMapper->getDomainModel($data);
-        return $domain;
+        return $customerMapper;
     }
 
     public function createSettings()
     {
         $settingsMapper = new SettingsMapper($this);
         return $settingsMapper;
+    }
+
+    public function createUser()
+    {
+        $userMapper = new UserMapper($this);
+        return $userMapper;
     }
 }

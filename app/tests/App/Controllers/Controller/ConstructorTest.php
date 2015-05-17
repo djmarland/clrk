@@ -20,8 +20,8 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
 
         $settings = new Settings(
             new ID(1),
-            null,
-            null,
+            new \DateTime(),
+            new \DateTime(),
             1,
             'App'
         );

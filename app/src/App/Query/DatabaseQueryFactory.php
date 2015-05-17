@@ -43,8 +43,12 @@ class DatabaseQueryFactory
         );
 
 
+
         $config = new Configuration();
-        $config->setMetadataDriverImpl(new StaticPHPDriver([]));
+        $driverImpl = $config->newDefaultAnnotationDriver(__DIR__ . '/../Client/Database/Entity');
+
+        //       $config->setMetadataDriverImpl(new StaticPHPDriver([]));
+        $config->setMetadataDriverImpl($driverImpl);
         $config->setMetadataCacheImpl(new ArrayCache()); // @todo - allow this to use APC
         $config->setProxyDir(__DIR__ . '/Proxies');
         $config->setProxyNamespace('Proxies');

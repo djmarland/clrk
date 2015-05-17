@@ -48,6 +48,7 @@ abstract class Presenter
      * @var
      */
     protected $uniqueId;
+
     /**
      * Get or generate a unique ID. Once generated once the same one will be used
      * Only used for unique references in a single render

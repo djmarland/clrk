@@ -1,38 +1,20 @@
 <?php
+/**
+ * Doctrine! Why must you force Annotations upon us!?
+ * At least its usage is self-contained in this Client section
+ */
 
 namespace App\Client\Database\Entity;
 
-use Doctrine\ORM\Mapping\ClassMetadata;
-
-class Entity
+/** @MappedSuperclass */
+abstract class Entity
 {
-
+    /** @Id @Column(type="integer") @GeneratedValue */
     public $id;
+
+    /** @Column(type="datetime") */
     public $updated_at;
+
+    /** @Column(type="datetime") */
     public $created_at;
-
-    /**
-     * @codeCoverageIgnore
-     * @param ClassMetadata $metadata
-     */
-    public static function commonMetadata(ClassMetadata $metadata)
-    {
-        $metadata->mapField(array(
-            'id' => true,
-            'fieldName' => 'id',
-            'type' => 'integer',
-            'primaryKey' => true,
-            'autoIncrement' => true
-        ));
-
-        $metadata->mapField(array(
-            'fieldName' => 'created_at',
-            'type' => 'datetime'
-        ));
-
-        $metadata->mapField(array(
-            'fieldName' => 'updated_at',
-            'type' => 'datetime'
-        ));
-    }
 }

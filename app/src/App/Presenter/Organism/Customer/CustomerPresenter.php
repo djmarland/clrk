@@ -15,9 +15,7 @@ class CustomerPresenter extends Presenter implements CustomerPresenterInterface
      * Default set of options
      * @var array
      */
-    protected $options = array(
-
-    );
+    protected $options = [];
 
     /**
      * @param Customer $customer

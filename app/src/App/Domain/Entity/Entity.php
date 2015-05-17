@@ -3,6 +3,7 @@
 namespace App\Domain\Entity;
 
 use App\Domain\ValueObject\ID;
+use App\Domain\ValueObject\IDUnset;
 use App\Domain\ValueObject\Key;
 use DateTime;
 
@@ -14,33 +15,16 @@ abstract class Entity
 {
     const KEY_PREFIX = null;
 
+    /**
+     * @param ID $id
+     * @param DateTime $createdAt
+     * @param DateTime $updatedAt
+     */
     public function __construct(
-        $id,
-        $createdAt,
-        $updatedAt
+        ID $id,
+        DateTime $createdAt,
+        DateTime $updatedAt
     ) {
-        if (!is_null($id) && !($id instanceof ID)) {
-            throw new \InvalidArgumentException('ID must be an instance of ID (or null)');
-        }
-
-        if (!is_null($createdAt) && !($createdAt instanceof DateTime)) {
-            throw new \InvalidArgumentException('CreatedAt must be an instance of DateTime (or null)');
-        }
-
-        if (!is_null($updatedAt) && !($updatedAt instanceof DateTime)) {
-            throw new \InvalidArgumentException('UpdatedAt must be an instance of DateTime (or null)');
-        }
-
-        if ((is_null($createdAt) && !is_null($updatedAt)) ||
-            (is_null($updatedAt) && !is_null($createdAt))) {
-            throw new \InvalidArgumentException('Both CreatedAt and UpdatedAt must be set');
-        }
-
-        if (is_null($createdAt)) {
-            $createdAt = new DateTime();
-            $updatedAt = new DateTime();
-        }
-
         $this->id = $id;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
@@ -56,7 +40,31 @@ abstract class Entity
      */
     public function getId()
     {
+        if ($this->id instanceof IDUnset) {
+            return null; // this means it's a new object
+        }
         return $this->id;
+    }
+
+    public function getIdValue()
+    {
+        $id = $this->getId();
+        if ($id) {
+            return $id->getId();
+        }
+        return null;
+    }
+
+    /**
+     * @param ID $id
+     */
+    public function setId(ID $id)
+    {
+        // may only be set if it wasn't before
+        if (!($this->id instanceof IDUnset)) {
+            throw new \InvalidArgumentException('Tried to set an ID when one was already set');
+        }
+        $this->id = $id;
     }
 
     /**

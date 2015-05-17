@@ -100,7 +100,8 @@ class Key
 
     public function getId()
     {
-        return $this->keyToId();
+        $id = $this->keyToId();
+        return new ID($id);
     }
 
     private function inflate($number, $prefix)

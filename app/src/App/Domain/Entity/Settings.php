@@ -2,8 +2,6 @@
 
 namespace App\Domain\Entity;
 
-use App\Domain\ValueObject\ID;
-
 /**
  * Class User
  * For describe users of the system
@@ -18,7 +16,7 @@ class Settings extends Entity
     const STATUS_ACTIVE = 1;
 
     /**
-     * @param ID $id
+     * @param $id
      * @param $createdAt
      * @param $updatedAt
      * @param $activeStatus

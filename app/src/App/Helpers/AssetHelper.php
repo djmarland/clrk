@@ -52,6 +52,9 @@ class AssetHelper extends Twig_Extension
 
     public function assetFunction($path)
     {
+        return '/' . $path;
+
+        // @todo - proper versioned assets
         if ($this->useRemoteAssets) {
             return "{$this->staticPrefix}/s/{$this->componentName}/{$this->assetVersion}/{$path}";
         }

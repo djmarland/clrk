@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add new user{% endblock %}
+
+{% block body %}
+
+    <h1>Add new user</h1>
+
+    {% if form.validationErrors %}
+        <div class="messages__msg messages__msg--error">
+            <p>There were errors in the form</p>
+            <ul>
+                {% for error in form.validationErrors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <form method="post">
+
+        <div class="input-wrap {{ form.classes.userName }}">
+            <label class="input-label" for="form-userName">Name</label>
+            <input class="input-head" type="text" required="true" name="userName" id="form-userName" value="{{ form.userName }}" />
+            {% if form.validationErrors.userName %}
+                <p>{{ form.validationErrors.userName }}</p>
+            {% endif %}
+        </div>
+
+        <div class="input-wrap {{ form.classes.userEmail }}">
+            <label class="input-label" for="form-userEmail">E-mail address</label>
+            <input class="input-head" type="email" required="true" name="userEmail" id="form-userEmail" value="{{ form.userEmail }}" />
+            {% if form.validationErrors.userEmail %}
+                <p>{{ form.validationErrors.userEmail }}</p>
+            {% endif %}
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+{% endblock %}
