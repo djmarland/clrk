@@ -11,12 +11,12 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
         $word = 'test@example.com'; // 6 characters
         $email = new Email($word);
         $this->assertSame($word, $email->getEmail());
-        $this->assertSame($word, (string) $email->getEmail());
+        $this->assertSame($word, (string) $email);
     }
 
     /**
      * @dataProvider providerOfInvalidEmails
-     * @param $password
+     * @param string $email
      */
     public function testIllegalEmails($email)
     {
