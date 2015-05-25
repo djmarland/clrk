@@ -42,8 +42,7 @@ class Password
         }
         if (in_array($plainText, [
             '123456',
-            'password',
-            'qwerty'
+            'password'
         ])) {
             throw new ValidationException('You must choose a more secure password');
         }

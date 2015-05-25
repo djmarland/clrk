@@ -13,8 +13,9 @@ class ConversionTest extends \PHPUnit_Framework_TestCase
      */
     public function testKeyToId($key, $expectedId)
     {
+        $expectedId = new ID($expectedId);
         $key = new Key($key);
-        $this->assertSame($expectedId, $key->getId());
+        $this->assertEquals($expectedId, $key->getId());
     }
 
     /**
