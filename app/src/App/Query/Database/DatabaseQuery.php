@@ -45,12 +45,19 @@ abstract class DatabaseQuery
         $this->mapperFactory = $mapperFactory;
     }
 
+    protected function calculateOffset(
+        $limit,
+        $page
+    ) {
+        return ($limit * ($page-1));
+    }
+
     protected function getEntity($name)
     {
         return $this->entityManager->getRepository('App\Client\Database\Entity\\' . $name);
     }
 
-    public function getResult($data)
+    public function getResult($data, $total = null)
     {
         if (!is_array($data)) {
             $data = [$data];

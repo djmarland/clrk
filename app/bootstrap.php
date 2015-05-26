@@ -62,8 +62,8 @@ $app['twig']->addFunction(
 //
 // Set up logging
 //
-$logHandlerFactory = new LogHandlerFactory($app['config']->get('logging'));
-$app['log'] = new Logger('app', $logHandlerFactory->getHandlers());
+//$logHandlerFactory = new LogHandlerFactory($app['config']->get('logging'));
+//$app['log'] = new Logger('app', $logHandlerFactory->getHandlers());
 
 
 //

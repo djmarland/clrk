@@ -16,12 +16,13 @@ class User extends Entity
     const KEY_PREFIX = 'U';
 
     /**
-     * @param $id
-     * @param $createdAt
-     * @param $updatedAt
+     * @param ID $id
+     * @param DateTime $createdAt
+     * @param DateTime $updatedAt
      * @param $name
      * @param Email $email
      * @param $passwordDigest
+     * @param bool $passwordExpired
      * @param bool $isAdmin
      */
     public function __construct(
@@ -31,7 +32,8 @@ class User extends Entity
         $name,
         Email $email,
         $passwordDigest,
-        $isAdmin = true
+        $passwordExpired = false,
+        $isAdmin = false
     ) {
         parent::__construct(
             $id,
@@ -41,6 +43,7 @@ class User extends Entity
 
         $this->name = $name;
         $this->email = $email;
+        $this->passwordExpired = $passwordExpired;
 
         // ensure the password is a string (will convert a Password object)
         $this->passwordDigest = (string) $passwordDigest;
@@ -127,12 +130,35 @@ class User extends Entity
     }
 
     /**
-     * @var string
+     * @var boolean
+     */
+    private $passwordExpired = false;
+
+    /**
+     * @return boolean
+     */
+    public function passwordHasExpired()
+    {
+        return $this->passwordExpired;
+    }
+
+    public function expirePassword()
+    {
+        $this->passwordExpired = true;
+    }
+
+    public function renewPassword()
+    {
+        $this->passwordExpired = false;
+    }
+
+    /**
+     * @var boolean
      */
     private $isAdmin = false;
 
     /**
-     * @return string
+     * @return boolean
      */
     public function isAdmin()
     {

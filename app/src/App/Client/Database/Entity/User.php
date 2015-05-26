@@ -19,4 +19,7 @@ class User extends Entity
 
     /** @Column(type="boolean") */
     public $is_admin;
+
+    /** @Column(type="boolean") */
+    public $password_expired;
 }

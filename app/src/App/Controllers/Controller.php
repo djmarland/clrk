@@ -22,6 +22,11 @@ abstract class Controller
     protected $app;
 
     /**
+     * @var int
+     */
+    protected $currentPage = 1;
+
+    /**
      * @var MasterPresenter
      */
     public $masterViewPresenter;
@@ -36,6 +41,16 @@ abstract class Controller
         $this->masterViewPresenter = new MasterPresenter();
 
         $this->getSettings();
+        $this->setPage();
+        $this->pre();
+    }
+
+    /**
+     * Setup common tasks for a controller
+     */
+    protected function pre()
+    {
+        // nothing in the mail controller
     }
 
     private function getSettings()
@@ -59,6 +74,11 @@ abstract class Controller
         }
 
         $this->set('settings', $settings);
+    }
+
+    private function setPage()
+    {
+
     }
 
     /**

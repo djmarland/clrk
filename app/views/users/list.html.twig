@@ -7,4 +7,9 @@
     <h1>Users</h1>
     <a href="{{ app.url_generator.generate('users_new') }}">New</a>
 
+    <ul>
+    {% for user in users %}
+        <li>{{ user.email }}</li>
+    {% endfor %}
+    </ul>
 {% endblock %}

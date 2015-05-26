@@ -40,4 +40,30 @@ class UsersQuery extends DatabaseQuery
         }
         return null;
     }
+
+    public function findLatest(
+        $limit,
+        $page
+    ) {
+        $offset = $this->calculateOffset($limit, $page);
+        $entity = $this->getEntity('User');
+
+        $sort = ['created_at' => 'DESC'];
+
+        $data = $entity->findBy(
+            [],
+            $sort
+        );
+        if ($data) {
+            return $this->getResult($data);
+        }
+        return null;
+
+        $count = $entity->findBy(
+            ['count(*)']
+        );
+        var_dump($count);
+        var_dump(get_class_methods($entity));die;
+        var_dump($data);die;
+    }
 }

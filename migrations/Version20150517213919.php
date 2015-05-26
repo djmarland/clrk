@@ -43,6 +43,10 @@ class Version20150517213919 extends AbstractMigration
             'notnull' => true
         ]);
 
+        $table->addColumn('password_expired', 'boolean', [
+            'default' => false
+        ]);
+
         $table->addColumn('is_admin', 'boolean', [
             'default' => false
         ]);

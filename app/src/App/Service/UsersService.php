@@ -50,4 +50,19 @@ class UsersService extends Service
         $id = $key->getId();
         return $this->findById($id);
     }
+
+    /**
+     * @param $limit
+     * @param $page
+     */
+    public function findLatest(
+        $limit,
+        $page = 1
+    ) {
+        $result = $this->usersQuery->findLatest(
+            $limit,
+            $page
+        );
+        return $result;
+    }
 }

@@ -25,6 +25,15 @@ use DateTime;
  */
 class UsersController extends Controller
 {
+
+    private $userService;
+
+    protected function pre()
+    {
+        $this->userService = $this->getServiceFactory()
+            ->createService('Users');
+    }
+
     /**
      * User List (/users)
      * @param Request $request
@@ -32,7 +41,14 @@ class UsersController extends Controller
      */
     public function listAction(Request $request)
     {
-        $this->set('user', []);
+        $perPage = 1;
+
+        $users = $this->userService
+            ->findLatest($perPage, $this->currentPage);
+
+        $domains = $users->getDomainModels();
+
+        $this->set('users', $domains);
         return $this->render($request, 'users/list');
     }
 
@@ -43,8 +59,7 @@ class UsersController extends Controller
     public function showAction(Request $request)
     {
         $key = $request->get('user_key');
-        $user = $this->getServiceFactory()
-            ->createService('Users')
+        $user = $this->userService
             ->findByKey(new Key($key));
 
         if (!$user) {
@@ -76,18 +91,21 @@ class UsersController extends Controller
 
                 $creationTime = new DateTime();
 
+                $temporaryPassword = md5(time());
+
                 $user = new User(
                     new IDUnset(),
                     $creationTime,
                     $creationTime,
                     $name,
                     $email,
-                    new Password('zzzzzz')
+                    new Password($temporaryPassword),
+                    true // password is already expired
                 );
-                $service = $this->getServiceFactory()
-                    ->createService('Users');
 
-                $user = $service->createNewUser($user);
+                $user = $this->userService->createNewUser($user);
+
+                // @todo - send the user a welcome e-mail
 
                 // @todo set flash message
                 return $this->app->redirect(
