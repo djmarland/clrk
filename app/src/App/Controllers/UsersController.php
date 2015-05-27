@@ -44,11 +44,11 @@ class UsersController extends Controller
         $perPage = 1;
 
         $users = $this->userService
-            ->findLatest($perPage, $this->currentPage);
+            ->findLatest($perPage, $this->getCurrentPage($request));
 
-        $domains = $users->getDomainModels();
+        $this->set('users', $users->getDomainModels());
+        $this->set('total', $users->getTotal());
 
-        $this->set('users', $domains);
         return $this->render($request, 'users/list');
     }
 

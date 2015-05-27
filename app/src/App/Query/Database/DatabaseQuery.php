@@ -63,7 +63,7 @@ abstract class DatabaseQuery
             $data = [$data];
         }
 
-        $queryResult = new Result($data);
+        $queryResult = new Result($data, $total);
         $domainModels = array();
         foreach ($queryResult->getItems() as $item) {
             $mapper = $this->mapperFactory->getMapper($item);

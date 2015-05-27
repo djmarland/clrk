@@ -28,9 +28,10 @@ class Result implements QueryResultInterface
     /**
      * @param $result
      */
-    public function __construct($result)
+    public function __construct($result, $total)
     {
         $this->items = $result;
+        $this->total = (int) $total;
     }
 
     /**

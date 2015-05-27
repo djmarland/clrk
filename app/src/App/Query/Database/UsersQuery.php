@@ -52,10 +52,16 @@ class UsersQuery extends DatabaseQuery
 
         $data = $entity->findBy(
             [],
-            $sort
+            $sort,
+            $limit,
+            $offset
         );
+
+        $qb = $entity->createQueryBuilder('user');
+        $qb->select('count(user.id)');
+        $count = $qb->getQuery()->getSingleScalarResult();
         if ($data) {
-            return $this->getResult($data);
+            return $this->getResult($data, $count);
         }
         return null;
 

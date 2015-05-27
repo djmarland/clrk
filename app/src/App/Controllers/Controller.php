@@ -41,7 +41,6 @@ abstract class Controller
         $this->masterViewPresenter = new MasterPresenter();
 
         $this->getSettings();
-        $this->setPage();
         $this->pre();
     }
 
@@ -50,7 +49,7 @@ abstract class Controller
      */
     protected function pre()
     {
-        // nothing in the mail controller
+        // nothing in the main controller
     }
 
     private function getSettings()
@@ -76,9 +75,18 @@ abstract class Controller
         $this->set('settings', $settings);
     }
 
-    private function setPage()
+    protected function getCurrentPage($request)
     {
+        $page = $request->get('page', 1);
 
+        // must be an integer string
+        if (
+            strval(intval($page)) !== strval($page) ||
+            $page < 1
+        ) {
+            $this->app->abort(404, 'No such page value');
+        }
+        return (int) $page;
     }
 
     /**
