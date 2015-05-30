@@ -42,12 +42,19 @@ class UsersController extends Controller
     public function listAction(Request $request)
     {
         $perPage = 1;
+        $currentPage = $this->getCurrentPage($request);
 
         $users = $this->userService
-            ->findLatest($perPage, $this->getCurrentPage($request));
+            ->findAndCountLatest($perPage, $currentPage);
 
         $this->set('users', $users->getDomainModels());
         $this->set('total', $users->getTotal());
+
+        $this->setPagination(
+            $users->getTotal(),
+            $currentPage,
+            $perPage
+        );
 
         return $this->render($request, 'users/list');
     }

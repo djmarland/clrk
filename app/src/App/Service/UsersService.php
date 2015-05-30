@@ -55,11 +55,11 @@ class UsersService extends Service
      * @param $limit
      * @param $page
      */
-    public function findLatest(
+    public function findAndCountLatest(
         $limit,
         $page = 1
     ) {
-        $result = $this->usersQuery->findLatest(
+        $result = $this->usersQuery->findAndCountLatest(
             $limit,
             $page
         );

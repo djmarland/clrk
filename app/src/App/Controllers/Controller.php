@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Infrastructure\Silex\SilexServiceFactory;
 use App\Presenter\MasterPresenter;
+use App\Presenter\Organism\Pagination\PaginationPresenter;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -87,6 +88,30 @@ abstract class Controller
             $this->app->abort(404, 'No such page value');
         }
         return (int) $page;
+    }
+
+    /**
+     * @param int $total Total Results
+     * @param int $currentPage The current page value
+     * @param int $perPage How many per page
+     */
+    protected function setPagination(
+        $total,
+        $currentPage,
+        $perPage
+    ) {
+
+        $pagination = new PaginationPresenter(
+            $total,
+            $currentPage,
+            $perPage
+        );
+
+        if (!$pagination->isValid()) {
+            $this->app->abort(404, 'There are not this many pages');
+        }
+
+        $this->set('pagination', $pagination);
     }
 
     /**

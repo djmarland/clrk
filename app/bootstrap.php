@@ -45,7 +45,10 @@ $app->register(new UrlGeneratorServiceProvider());
 $app->register(
     new TwigServiceProvider(),
     [
-        'twig.path' => __DIR__.'/views',
+        'twig.path' => [
+            __DIR__.'/views',
+            __DIR__.'/src/App/Presenter'
+        ],
         'twig.options' => $app['config']->get('twig')
     ]
 );

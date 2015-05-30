@@ -57,19 +57,33 @@ class UsersQuery extends DatabaseQuery
             $offset
         );
 
+        if (!$data) {
+            $data = array();
+        }
+        return $this->getResult($data);
+    }
+
+    public function countAll()
+    {
+        $entity = $this->getEntity('User');
         $qb = $entity->createQueryBuilder('user');
         $qb->select('count(user.id)');
-        $count = $qb->getQuery()->getSingleScalarResult();
-        if ($data) {
-            return $this->getResult($data, $count);
-        }
-        return null;
+        $count = (int) $qb->getQuery()->getSingleScalarResult();
+        return $count;
+    }
 
-        $count = $entity->findBy(
-            ['count(*)']
+    public function findAndCountLatest(
+        $limit,
+        $page
+    ) {
+        $result = $this->findLatest(
+            $limit,
+            $page
         );
-        var_dump($count);
-        var_dump(get_class_methods($entity));die;
-        var_dump($data);die;
+
+        $total = $this->countAll();
+        $result->setTotal($total);
+
+        return $result;
     }
 }
