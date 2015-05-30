@@ -3,6 +3,7 @@
 namespace App\Query;
 
 use App\Mapper\Database\MapperFactory;
+use App\Query\Database\DatabaseQuery;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Persistence\Mapping\Driver\StaticPHPDriver;
 use Doctrine\ORM\Configuration;
@@ -12,7 +13,6 @@ use Doctrine\ORM\EntityManager;
  * Default factory setup
  * Class DatabaseQueryFactory
  * @package App\Infrastructure
- * @internal
  */
 class DatabaseQueryFactory
 {
@@ -57,7 +57,7 @@ class DatabaseQueryFactory
 
     /**
      * @param $queryName
-     * @return QueryInterface
+     * @return DatabaseQuery
      */
     public function createQuery($queryName)
     {

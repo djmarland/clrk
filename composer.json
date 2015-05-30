@@ -6,7 +6,8 @@
     "twig/twig": "~1.8",
     "monolog/monolog": "~1.0",
     "doctrine/dbal": "^2.5",
-    "doctrine/orm": "^2.5"
+    "doctrine/orm": "^2.5",
+    "phpmailer/phpmailer": "^5.2"
   },
 
   "require-dev": {

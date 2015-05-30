@@ -4,6 +4,7 @@ namespace App\Infrastructure\Silex;
 
 use App\Infrastructure\ServiceFactory;
 use App\Query\DatabaseQueryFactory;
+use App\Query\EmailQueryFactory;
 use App\Service\Service;
 use Silex\Application;
 
@@ -19,10 +20,12 @@ class SilexServiceFactory extends ServiceFactory
     {
 
         $databaseQueryFactory = $this->getDatabaseQueryFactory($app);
+        $emailQueryFactory = $this->getEmailQueryFactory($app);
 
         parent::__construct(
             [
-                Service::FACTORY_DATABASE => $databaseQueryFactory
+                Service::FACTORY_DATABASE => $databaseQueryFactory,
+                Service::FACTORY_EMAIL    => $emailQueryFactory
             ]
         );
     }
@@ -41,6 +44,21 @@ class SilexServiceFactory extends ServiceFactory
             $username,
             $password,
             $driver
+        );
+    }
+
+    private function getEmailQueryFactory($app)
+    {
+        $host       = $app['config']->get('email.host');
+        $username   = $app['config']->get('email.username');
+        $password   = $app['config']->get('email.password');
+        $from       = $app['config']->get('email.from');
+
+        return new EmailQueryFactory(
+            $host,
+            $username,
+            $password,
+            $from
         );
     }
 }

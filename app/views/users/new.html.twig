@@ -20,7 +20,7 @@
 
         <div class="input-wrap {{ form.classes.userName }}">
             <label class="input-label" for="form-userName">Name</label>
-            <input class="input-head" type="text" required="true" name="userName" id="form-userName" value="{{ form.userName }}" />
+            <input class="input-head" type="text" required="true" name="userName" id="form-userName" value="{{ form.values.userName }}" />
             {% if form.validationErrors.userName %}
                 <p>{{ form.validationErrors.userName }}</p>
             {% endif %}
@@ -28,7 +28,7 @@
 
         <div class="input-wrap {{ form.classes.userEmail }}">
             <label class="input-label" for="form-userEmail">E-mail address</label>
-            <input class="input-head" type="email" required="true" name="userEmail" id="form-userEmail" value="{{ form.userEmail }}" />
+            <input class="input-head" type="email" required="true" name="userEmail" id="form-userEmail" value="{{ form.values.userEmail }}" />
             {% if form.validationErrors.userEmail %}
                 <p>{{ form.validationErrors.userEmail }}</p>
             {% endif %}

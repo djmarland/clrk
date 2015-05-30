@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Domain\Exception\DataNotSetException;
+use App\Query\DatabaseQueryFactory;
+use App\Query\EmailQueryFactory;
 
 /**
  * Default factory setup
@@ -13,6 +15,8 @@ abstract class Service
 {
 
     const FACTORY_DATABASE = 'Database';
+
+    const FACTORY_EMAIL = 'Email';
 
     /**
      * @var
@@ -26,13 +30,12 @@ abstract class Service
         $factories = []
     ) {
         $this->factories = $factories;
-        $this->setUp();
     }
 
-    public function setUp()
-    {
-    }
-
+    /**
+     * @return DatabaseQueryFactory
+     * @throws DataNotSetException
+     */
     public function getDatabaseQueryFactory()
     {
         if (isset($this->factories[self::FACTORY_DATABASE])) {
@@ -40,6 +43,20 @@ abstract class Service
         }
         throw new DataNotSetException(
             'You tried to use a feature that needed a Database factory, but it was not setup'
+        );
+    }
+
+    /**
+     * @return EmailQueryFactory
+     * @throws DataNotSetException
+     */
+    public function getEmailQueryFactory()
+    {
+        if (isset($this->factories[self::FACTORY_EMAIL])) {
+            return $this->factories[self::FACTORY_EMAIL];
+        }
+        throw new DataNotSetException(
+            'You tried to use a feature that needed an Email factory, but it was not setup'
         );
     }
 }

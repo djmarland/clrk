@@ -140,13 +140,12 @@ abstract class Controller
          return $this->masterViewPresenter->get($key);
     }
 
-
     /**
      * Once complete, render the view
      * @param $request Request
-     * @param $app Application
      * @param $viewPath string optional
      * @return string
+     * @internal param Application $app
      */
     public function render(Request $request, $viewPath)
     {
@@ -156,6 +155,14 @@ abstract class Controller
         }
         $viewPath .= '.html.twig';
         return $this->app['twig']->render($viewPath, $this->masterViewPresenter->getData());
+    }
+
+    public function renderEmail($viewPath, $mailData)
+    {
+        $viewPath = 'emails/' . $viewPath . '.html.twig';
+        $data = $this->masterViewPresenter->getData();
+        $data['email'] = $mailData;
+        return $this->app['twig']->render($viewPath, $data);
     }
 
     /**

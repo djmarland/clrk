@@ -41,7 +41,7 @@ class UsersController extends Controller
      */
     public function listAction(Request $request)
     {
-        $perPage = 1;
+        $perPage = 2;
         $currentPage = $this->getCurrentPage($request);
 
         $users = $this->userService
@@ -112,7 +112,17 @@ class UsersController extends Controller
 
                 $user = $this->userService->createNewUser($user);
 
-                // @todo - send the user a welcome e-mail
+                $emailService = $this->getServiceFactory()->createService('email');
+                $emailService->send(
+                    $email,
+                    $this->get('settings')->getApplicationName(),
+                    'Welcome',
+                    $this->renderEmail('welcome', [
+                        'name' => $name,
+                        'password' => $temporaryPassword
+                    ])
+                );
+
 
                 // @todo set flash message
                 return $this->app->redirect(

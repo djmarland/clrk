@@ -13,11 +13,9 @@ use App\Domain\ValueObject\Key;
  */
 class UsersService extends Service
 {
-    protected $usersQuery;
-
-    public function setUp()
+    public function getUserQuery()
     {
-        $this->usersQuery = $this->getDatabaseQueryFactory()->createQuery('Users');
+        return $this->getDatabaseQueryFactory()->createQuery('Users');
     }
 
     /**
@@ -27,14 +25,15 @@ class UsersService extends Service
     public function createNewUser(User $user)
     {
         // @todo - check for unique (somewhere)
-        $result = $this->usersQuery->insert($user);
+
+        $result = $this->getUserQuery()->insert($user);
         $user->setId(new ID($result));
         return $user;
     }
 
     public function findById(ID $id)
     {
-        $result = $this->usersQuery->findById((string) $id);
+        $result = $this->getUserQuery()->findById((string) $id);
 
         if ($result) {
             // only one was expected, so just return it directly
@@ -59,7 +58,7 @@ class UsersService extends Service
         $limit,
         $page = 1
     ) {
-        $result = $this->usersQuery->findAndCountLatest(
+        $result = $this->getUserQuery()->findAndCountLatest(
             $limit,
             $page
         );

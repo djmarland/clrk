@@ -155,7 +155,11 @@ class PaginationPresenter extends Presenter implements PaginationPresenterInterf
 
     public function getEnd()
     {
-        return $this->perPage * $this->currentPage;
+        $end = $this->perPage * $this->currentPage;
+        if ($end > $this->total) {
+            $end = $this->total;
+        }
+        return $end;
     }
 
     public function getTotal()
