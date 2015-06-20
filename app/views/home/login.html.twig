@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block header %}{% endblock %}
+{% block body %}
+
+    <h1>Login</h1>
+    <form action="{{ path('login_check') }}" method="post">
+        {{ loginError }}
+        <div class="input-wrap {{ form.classes.userEmail }}">
+            <label class="input-label" for="form-userEmail">E-mail address</label>
+            <input class="input-head" type="email" required="true" name="_username" id="form-userEmail" value="{{ lastUsername }}" />
+            {% if form.validationErrors.userEmail %}
+                <p>{{ form.validationErrors.userEmail }}</p>
+            {% endif %}
+        </div>
+        <div class="input-wrap {{ form.classes.password }}">
+            <label class="input-label" for="form-password">Password</label>
+            <input class="input-head" type="password" required="true" name="_password" id="form-password" />
+            {% if form.validationErrors.password %}
+                <p>{{ form.validationErrors.password }}</p>
+            {% endif %}
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+
+{% endblock %}
+{% block footer %}{% endblock %}
+
+

@@ -33,7 +33,9 @@ class UsersService extends Service
 
     public function findById(ID $id)
     {
-        $result = $this->getUserQuery()->findById((string) $id);
+        $result = $this->getUserQuery()
+            ->setBy('id',(string) $id)
+            ->findOne();
 
         if ($result) {
             // only one was expected, so just return it directly
@@ -48,6 +50,20 @@ class UsersService extends Service
     {
         $id = $key->getId();
         return $this->findById($id);
+    }
+
+    public function findByEmail($email)
+    {
+        $result = $this->getUserQuery()
+            ->setBy('email',$email)
+            ->findOne();
+        if ($result) {
+            // only one was expected, so just return it directly
+            // rather than a full result object
+            $users = $result->getDomainModels();
+            return reset($users);
+        }
+        return null; // no such user
     }
 
     /**

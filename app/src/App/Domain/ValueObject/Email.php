@@ -14,6 +14,7 @@ class Email
     public function __construct(
         $email
     ) {
+        $email = trim(strtolower($email));
         $this->validate($email);
         $this->email = $email;
     }

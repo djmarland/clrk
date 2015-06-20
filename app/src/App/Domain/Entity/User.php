@@ -6,12 +6,13 @@ use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\ID;
 use App\Domain\ValueObject\Password;
 use DateTime;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class User
  * For describe users of the system
  */
-class User extends Entity
+class User extends Entity implements UserInterface
 {
     const KEY_PREFIX = 'U';
 
@@ -44,9 +45,7 @@ class User extends Entity
         $this->name = $name;
         $this->email = $email;
         $this->passwordExpired = $passwordExpired;
-
-        // ensure the password is a string (will convert a Password object)
-        $this->passwordDigest = (string) $passwordDigest;
+        $this->passwordDigest = $passwordDigest;
     }
 
     /**
@@ -109,14 +108,14 @@ class User extends Entity
     }
 
     /**
-     * @param Password $newPassword
-     * @return int
+     * @param $newPassword
      */
-    public function setPasswordDigest(Password $newPassword)
+    public function setPasswordDigest($newPassword)
     {
-        $this->passwordDigest = (string) $newPassword;
+        $this->passwordDigest = $newPassword;
     }
 
+    /*
     public function passwordMatches($match)
     {
         $matches =  password_verify($match, $this->passwordDigest);
@@ -128,6 +127,7 @@ class User extends Entity
        // }
         return $matches;
     }
+    */
 
     /**
      * @var boolean
@@ -175,5 +175,35 @@ class User extends Entity
     {
         $this->isAdmin = false;
         $this->updated();
+    }
+
+
+    public function getUsername()
+    {
+        return (string) $this->getEmail();
+    }
+
+    public function getPassword()
+    {
+        return (string) $this->getPasswordDigest();
+    }
+
+    public function getSalt()
+    {
+        return null; // no salt
+    }
+
+    public function getRoles()
+    {
+        return []; // no roles yet
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return ($this->getUsername() == $user->getUsername());
     }
 }

@@ -25,6 +25,10 @@ $app['controllers.customers'] = $app->share(
 );
 
 
+$app->get('/login', 'controllers.home:loginAction')->bind('login');
+$app->post('/login-check')->bind('login_check');
+
+
 $app->get('/users', 'controllers.users:listAction')->bind('users_list');
 $app->get('/users/new', 'controllers.users:newAction')->bind('users_new');
 $app->post('/users/new', 'controllers.users:newAction');

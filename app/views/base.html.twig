@@ -7,12 +7,23 @@
     <link rel="stylesheet" href="{{asset('global.css')}}" />
 </head>
 <body>
-<div class="header">App</div>
-<div class="content">
-    {% block body %}{% endblock %}
-</div>
+{% block header %}
+    <div class="header">App</div>
+    <div>Hello <a href="{{ path('users_show', {'user_key' : currentUser.key}) }}">{{ currentUser.name }}</a></div>
+    <nav>
+        <ul>
+            <li><a href="{{ path('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+{% endblock %}
+{% block body %}{% endblock %}
+{% block footer %}
+    </div>
+{% endblock %}
 <!--
 <script src="{{asset('js/bootstrap.js')}}"></script>
 -->
 </body>
 </html>
+

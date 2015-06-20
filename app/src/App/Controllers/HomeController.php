@@ -39,6 +39,14 @@ class HomeController extends Controller
         return $this->render($request, 'home/index');
     }
 
+    public function loginAction(Request $request)
+    {
+        $this->set('loginError', $this->app['security.last_error']($request));
+        $this->set('lastUsername', $this->app['session']->get('_security.last_username'));
+
+        return $this->render($request, 'home/login');
+    }
+
     /**
      * Style guide (/styleguide)
      * @param Request $request

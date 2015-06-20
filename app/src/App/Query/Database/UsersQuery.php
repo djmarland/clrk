@@ -26,19 +26,34 @@ class UsersQuery extends DatabaseQuery
         return $entity->id;
     }
 
-    /**
-     * @param $id
-     * @return Result|null
-     */
-    public function findById($id)
+    private $by = [];
+
+    public function setBy(
+        $key,
+        $value
+    ) {
+        $this->by[$key] = $value;
+        return $this;
+    }
+
+    public function findOne()
     {
         $entity = $this->getEntity('User');
 
-        $data = $entity->findOneBy(['id' => $id]);
+        $data = $entity->findOneBy($this->by);
         if ($data) {
             return $this->getResult($data);
         }
         return null;
+    }
+
+    public function countAll()
+    {
+        $entity = $this->getEntity('User');
+        $qb = $entity->createQueryBuilder('user');
+        $qb->select('count(user.id)');
+        $count = (int) $qb->getQuery()->getSingleScalarResult();
+        return $count;
     }
 
     public function findLatest(
@@ -61,15 +76,6 @@ class UsersQuery extends DatabaseQuery
             $data = array();
         }
         return $this->getResult($data);
-    }
-
-    public function countAll()
-    {
-        $entity = $this->getEntity('User');
-        $qb = $entity->createQueryBuilder('user');
-        $qb->select('count(user.id)');
-        $count = (int) $qb->getQuery()->getSingleScalarResult();
-        return $count;
     }
 
     public function findAndCountLatest(

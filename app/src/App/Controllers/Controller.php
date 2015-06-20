@@ -23,6 +23,11 @@ abstract class Controller
     protected $app;
 
     /**
+     * @var User
+     */
+    protected $currentUser;
+
+    /**
      * @var int
      */
     protected $currentPage = 1;
@@ -40,6 +45,16 @@ abstract class Controller
     {
         $this->app = $app;
         $this->masterViewPresenter = new MasterPresenter();
+
+        // set the current user
+        $token = $this->app['security']->getToken();
+        if ($token) {
+            $user = $this->app['security']->getToken()->getUser();
+            if ($user) {
+                $this->currentUser = $user;
+                $this->set('currentUser', $user); // does this need a presenter?
+            }
+        }
 
         $this->getSettings();
         $this->pre();
@@ -145,7 +160,6 @@ abstract class Controller
      * @param $request Request
      * @param $viewPath string optional
      * @return string
-     * @internal param Application $app
      */
     public function render(Request $request, $viewPath)
     {

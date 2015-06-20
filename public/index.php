@@ -22,6 +22,8 @@ if ($app_env == 'dev') {
 //
 $app = new Application();
 
+$app['debug'] = true;
+
 //
 // Run the bootstrap:
 //

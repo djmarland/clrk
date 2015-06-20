@@ -21,7 +21,7 @@ class ServiceFactory
 
     public function createService($serviceName)
     {
-        $className = '\App\Service\\' . $serviceName . 'Service';
+        $className = '\App\Service\\' . ucfirst($serviceName) . 'Service';
         if (!isset($this->services[$className])) {
             $this->services[$className] = new $className($this->queryFactories);
         }

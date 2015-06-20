@@ -13,8 +13,9 @@ use App\Domain\Exception\ValidationException;
 use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\IDUnset;
 use App\Domain\ValueObject\Key;
-use App\Domain\ValueObject\Password;
+use App\Infrastructure\PasswordEncoderProvider;
 use App\Presenter\Molecule\Form\FormPresenter;
+use App\Service\UsersService;
 use Silex\Application;
 use Solution10\Config\Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +27,9 @@ use DateTime;
 class UsersController extends Controller
 {
 
+    /**
+     * @var UsersService
+     */
     private $userService;
 
     protected function pre()
@@ -70,7 +74,7 @@ class UsersController extends Controller
             ->findByKey(new Key($key));
 
         if (!$user) {
-            $this->app->abort(404, 'User ' . $key . ' does not exist.');
+            return $this->app->abort(404, 'User ' . $key . ' does not exist.');
         }
 
         $this->set('user', $user);
@@ -96,9 +100,18 @@ class UsersController extends Controller
                     throw new FormInvalidException;
                 }
 
+                // see if a user with that e-mail address already exists
+                $previousUser = $this->userService->findByEmail($email);
+                if ($previousUser) {
+                    $form->addValidationError('userEmail', 'A user already exists with this e-mail address');
+                    throw new FormInvalidException;
+                }
+
                 $creationTime = new DateTime();
 
                 $temporaryPassword = md5(time());
+
+                $passwordEncoder = new PasswordEncoderProvider();
 
                 $user = new User(
                     new IDUnset(),
@@ -106,7 +119,7 @@ class UsersController extends Controller
                     $creationTime,
                     $name,
                     $email,
-                    new Password($temporaryPassword),
+                    $passwordEncoder->encodePassword($temporaryPassword),
                     true // password is already expired
                 );
 
